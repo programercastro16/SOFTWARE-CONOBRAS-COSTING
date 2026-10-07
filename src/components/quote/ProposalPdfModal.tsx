@@ -1,14 +1,14 @@
 import React, { useRef, useState } from 'react';
-import { 
-  X, 
-  Download, 
-  Printer, 
-  Share2, 
-  Check, 
-  Building2, 
-  Calendar, 
-  User, 
-  MapPin, 
+import {
+  X,
+  Download,
+  Printer,
+  Share2,
+  Check,
+  Building2,
+  Calendar,
+  User,
+  MapPin,
   Phone,
   Mail,
   ShieldCheck,
@@ -100,7 +100,7 @@ export const ProposalPdfModal: React.FC<ProposalPdfModalProps> = ({
   // Compartir por WhatsApp
   const handleShareWhatsApp = () => {
     const cleanPhone = quote.telefono.replace(/\D/g, '');
-    const message = 
+    const message =
       `*PROPUESTA ECONÓMICA DE OBRA - CONOBRAS*\n` +
       `*Folio:* ${quote.codigo}\n` +
       `*Proyecto:* ${quote.proyecto}\n` +
@@ -119,7 +119,7 @@ export const ProposalPdfModal: React.FC<ProposalPdfModalProps> = ({
   return (
     <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-2 sm:p-6 overflow-y-auto">
       <div className="bg-[#0E121A] border border-[#252D3D] rounded-2xl w-full max-w-4xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in duration-200">
-        
+
         {/* HEADER DE CONTROL */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-[#252D3D] bg-[#12161F] no-print shrink-0">
           <div className="flex items-center gap-3">
@@ -169,7 +169,7 @@ export const ProposalPdfModal: React.FC<ProposalPdfModalProps> = ({
 
         {/* CONTENEDOR DEL DOCUMENTO TIPO HOJA A4 IMPRESA */}
         <div className="flex-1 overflow-y-auto p-4 sm:p-8 bg-[#07090C] flex justify-center">
-          <div 
+          <div
             ref={printRef}
             className="w-full max-w-[800px] bg-white text-[#1A202C] p-8 sm:p-12 shadow-2xl rounded-sm print:shadow-none print:p-0 print:m-0"
             style={{ minHeight: '1050px', fontFamily: '"Plus Jakarta Sans", sans-serif' }}
@@ -178,9 +178,9 @@ export const ProposalPdfModal: React.FC<ProposalPdfModalProps> = ({
             <div className="flex justify-between items-start border-b-2 border-[#1A202C] pb-6 mb-6">
               <div className="flex items-center gap-4">
                 <div className="h-16 w-24 p-1 flex items-center justify-center">
-                  <img 
-                    src="./assets/conobras-logo.png" 
-                    alt="Conobras" 
+                  <img
+                    src="./assets/conobras-logo.png"
+                    alt="Conobras"
                     className="max-h-full max-w-full object-contain filter drop-shadow-md"
                     onError={(e) => {
                       (e.target as HTMLElement).style.display = 'none';

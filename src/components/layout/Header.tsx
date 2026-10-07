@@ -1,48 +1,90 @@
-import React from 'react';
-import { Plus, Database, Sparkles, FolderOpen } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Plus, FolderOpen, Sparkles, Clock } from 'lucide-react';
+import { InteractiveButton } from '../common/InteractiveButton';
+import { TypewriterHeadline, ShimmerBadge } from '../common/AnimatedText';
 
 interface HeaderProps {
   onNewQuote: () => void;
   onOpenCatalog: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onNewQuote, onOpenCatalog }) => {
+export const Header: React.FC<HeaderProps> = ({ 
+  onNewQuote, 
+  onOpenCatalog
+}) => {
+  const [timeStr, setTimeStr] = useState<string>('');
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      setTimeStr(now.toLocaleTimeString('es-MX', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      }));
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   const currentDate = new Date().toLocaleDateString('es-MX', {
-    weekday: 'long',
+    weekday: 'short',
     year: 'numeric',
-    month: 'long',
+    month: 'short',
     day: 'numeric'
   });
 
   return (
-    <header className="h-16 border-b border-[#252D3D] bg-[#0E121A]/80 backdrop-blur-md px-6 flex items-center justify-between no-print z-10">
-      <div className="flex items-center gap-3">
-        <span className="text-xs text-[#8A94A6] capitalize font-medium">
-          {currentDate}
-        </span>
-        <span className="text-[#252D3D]">•</span>
-        <span className="text-xs text-[#D4AF37] font-medium flex items-center gap-1.5">
-          <Sparkles size={13} />
-          Estudio de Arquitectura
-        </span>
+    <header className="h-16 border-b border-[#252D3D] bg-[#0E121A]/90 backdrop-blur-xl px-6 flex items-center justify-between no-print z-10 select-none">
+      {/* SECCIÓN IZQUIERDA: SLOGAN DINÁMICO ANIMADO Y FECHA/HORA DE ESTUDIO */}
+      <div className="flex items-center gap-4">
+        {/* Reloj de Precisión de Obra */}
+        <div className="hidden sm:flex items-center gap-2 text-xs text-[#8A94A6] font-mono bg-[#141822]/70 px-2.5 py-1 rounded-lg border border-[#252D3D]">
+          <Clock size={12} className="text-[#D4AF37]" />
+          <span className="capitalize">{currentDate}</span>
+          <span className="text-[#D4AF37]">•</span>
+          <span className="text-white font-bold">{timeStr}</span>
+        </div>
+
+        {/* Separador */}
+        <span className="hidden sm:inline text-[#252D3D]">•</span>
+
+        {/* Headline Dinámico con Efecto Typewriter */}
+        <div className="hidden md:block">
+          <TypewriterHeadline 
+            prefix="CONOBRAS •"
+            typingSpeed={40}
+            pauseTime={2500}
+          />
+        </div>
       </div>
 
+      {/* SECCIÓN DERECHA: ACCIONES RÁPIDAS CON BOTONES INTERACTIVOS 3D */}
       <div className="flex items-center gap-3">
-        <button
-          onClick={onOpenCatalog}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#141822] hover:bg-[#1A202C] border border-[#252D3D] text-xs text-[#8A94A6] hover:text-white transition-all"
-        >
-          <FolderOpen size={14} className="text-[#D4AF37]" />
-          <span>Insumos Rápidos</span>
-        </button>
+        <ShimmerBadge variant="gold" icon={<Sparkles size={11} className="animate-spin-slow-3d" />}>
+          Estudio de Arquitectura
+        </ShimmerBadge>
 
-        <button
-          onClick={onNewQuote}
-          className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-[#D4AF37] to-[#AA8820] hover:from-[#E6C65A] hover:to-[#D4AF37] text-black font-semibold text-xs transition-all shadow-md shadow-[#D4AF37]/20 active:scale-95"
+        <InteractiveButton
+          variant="glass"
+          size="sm"
+          onClick={onOpenCatalog}
+          icon={<FolderOpen size={14} className="text-[#38BDF8]" />}
         >
-          <Plus size={15} />
-          <span>Nueva Cotización</span>
-        </button>
+          Insumos Rápidos
+        </InteractiveButton>
+
+        <InteractiveButton
+          variant="gold"
+          size="sm"
+          shimmer={true}
+          glow={true}
+          onClick={onNewQuote}
+          icon={<Plus size={15} />}
+        >
+          Nueva Cotización
+        </InteractiveButton>
       </div>
     </header>
   );

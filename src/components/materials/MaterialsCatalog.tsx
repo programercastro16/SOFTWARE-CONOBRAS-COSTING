@@ -17,6 +17,9 @@ import {
 import { Insumo, InsumoCategoria } from '../../types';
 import { storageService } from '../../services/storageService';
 import { SEED_INSUMOS } from '../../data/seedData';
+import { InteractiveButton } from '../common/InteractiveButton';
+import { ShimmerBadge } from '../common/AnimatedText';
+import { AnimatedCounter } from '../common/AnimatedCounter';
 
 // Input numérico que no bloquea la escritura de decimales ni el borrado
 const NumericInput: React.FC<{
@@ -199,34 +202,44 @@ export const MaterialsCatalog: React.FC<MaterialsCatalogProps> = ({
   return (
     <div className="space-y-6">
       {/* HEADER DEL CATÁLOGO */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-xl bg-[#12161F] border border-[#252D3D]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-[#12161F] border border-[#252D3D] shadow-xl">
         <div>
           <div className="flex items-center gap-2">
-            <Boxes className="text-[#D4AF37]" size={20} />
+            <Boxes className="text-[#D4AF37]" size={22} />
             <h2 className="text-lg font-bold text-white tracking-wide uppercase">
-              Catálogo de Materiales e Insumos
+              Catálogo de Materiales & Insumos
             </h2>
           </div>
           <p className="text-xs text-[#8A94A6] mt-0.5">
-            Base de datos interna. Haz clic en el botón Editar o sobre cualquier precio para actualizarlo al instante.
+            Base de datos de precios unitarios Conobras. Haz clic sobre cualquier precio para editarlo en tiempo real.
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
-          <button
+        <div className="flex items-center gap-3">
+          <ShimmerBadge variant="cyan" icon={<Layers size={13} />}>
+            <span>{filteredMaterials.length} Insumos Activos</span>
+          </ShimmerBadge>
+
+          <InteractiveButton
+            variant="glass"
+            size="sm"
             onClick={handleResetCatalog}
             title="Cargar catálogo base recomendado"
-            className="p-2 text-[#8A94A6] hover:text-[#D4AF37] hover:bg-[#1A202C] rounded-lg transition-colors border border-[#252D3D]"
+            icon={<RotateCcw size={14} />}
           >
-            <RotateCcw size={16} />
-          </button>
-          <button
+            Restablecer
+          </InteractiveButton>
+
+          <InteractiveButton
+            variant="gold"
+            size="sm"
+            shimmer={true}
+            glow={true}
             onClick={handleOpenNew}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-[#D4AF37] to-[#AA8820] hover:from-[#E6C65A] hover:to-[#D4AF37] text-black font-semibold text-xs transition-all shadow-md shadow-[#D4AF37]/20 active:scale-95"
+            icon={<Plus size={15} />}
           >
-            <Plus size={16} />
-            <span>Nuevo Insumo</span>
-          </button>
+            Nuevo Insumo
+          </InteractiveButton>
         </div>
       </div>
 

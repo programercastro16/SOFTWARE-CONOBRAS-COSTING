@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Sidebar, ActiveTab } from './components/layout/Sidebar';
 import { Header } from './components/layout/Header';
+import { NavigationTabs } from './components/layout/NavigationTabs';
 import { QuoteBuilder } from './components/quote/QuoteBuilder';
 import { MaterialsCatalog } from './components/materials/MaterialsCatalog';
 import { QuoteHistory } from './components/history/QuoteHistory';
 import { SettingsView } from './components/settings/SettingsView';
 import { ProposalPdfModal } from './components/quote/ProposalPdfModal';
+import { AmbientBackground3D } from './components/common/AmbientBackground3D';
 import { Cotizacion, Insumo, ConfiguracionEmpresa } from './types';
 import { storageService } from './services/storageService';
 import { DEFAULT_CONFIG } from './data/seedData';
@@ -43,7 +45,7 @@ export const App: React.FC = () => {
   const [materials, setMaterials] = useState<Insumo[]>([]);
   const [config, setConfig] = useState<ConfiguracionEmpresa>(DEFAULT_CONFIG);
   
-  // Cotización en edición activa (inicia completamente vacía para que el usuario empiece de cero)
+  // Cotización en edición activa
   const [currentQuote, setCurrentQuote] = useState<Cotizacion>(() => createEmptyQuote(DEFAULT_CONFIG, 0));
   
   // Cotización para vista previa en modal PDF
@@ -101,7 +103,10 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen w-screen bg-[#0A0D12] text-[#F3F5F8] overflow-hidden">
+    <div className="relative flex h-screen w-screen bg-[#0A0D12] text-[#F3F5F8] overflow-hidden select-none">
+      {/* FONDO DINÁMICO 3D CON PARTÍCULAS Y OBJETOS VOLANDO EN EL ESPACIO */}
+      <AmbientBackground3D />
+
       {/* BARRA LATERAL CON BRANDING CONOBRAS */}
       <Sidebar 
         activeTab={activeTab} 
@@ -111,48 +116,63 @@ export const App: React.FC = () => {
       />
 
       {/* ÁREA DE CONTENIDO PRINCIPAL */}
-      <div className="flex-1 flex flex-col h-full overflow-hidden">
+      <div className="flex-1 flex flex-col h-full overflow-hidden z-10 relative">
         <Header 
           onNewQuote={handleNewQuote}
           onOpenCatalog={() => setActiveTab('materiales')}
         />
 
-        <main className="flex-1 overflow-y-auto p-6 lg:p-8 bg-[#0A0D12]">
-          <div className="max-w-7xl mx-auto">
-            {activeTab === 'cotizador' && (
-              <QuoteBuilder
-                currentQuote={currentQuote}
-                config={config}
-                materials={materials}
-                onQuoteSaved={loadData}
-                onOpenPdf={(q) => setPreviewQuote(q)}
-                onUpdateCurrentQuote={(q) => setCurrentQuote(q)}
-              />
-            )}
+        {/* NAVEGACIÓN TABS SUPERIOR */}
+        <div className="px-6 lg:px-8 bg-[#0A0D12]/60 backdrop-blur-sm">
+          <NavigationTabs
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            quotesCount={quotes.length}
+            materialsCount={materials.length}
+            currentQuoteCode={currentQuote?.codigo}
+          />
+        </div>
 
-            {activeTab === 'materiales' && (
-              <MaterialsCatalog 
-                materials={materials}
-                onRefresh={loadData}
-                onSelectItemForQuote={handleInsertMaterialIntoActiveQuote}
-              />
-            )}
+        {/* CONTENEDOR DESPLAZABLE CON TRANSICIÓN DINÁMICA */}
+        <main className="flex-1 overflow-y-auto p-6 lg:p-8 bg-transparent">
+          <div className="max-w-7xl mx-auto space-y-6">
+            {/* VISTAS MODULARES CON ANIMACIONES DE ENTRADA SUAVES */}
+            <div key={activeTab} className="animate-fade-in-up">
+              {activeTab === 'cotizador' && (
+                <QuoteBuilder
+                  currentQuote={currentQuote}
+                  config={config}
+                  materials={materials}
+                  onQuoteSaved={loadData}
+                  onOpenPdf={(q) => setPreviewQuote(q)}
+                  onUpdateCurrentQuote={(q) => setCurrentQuote(q)}
+                />
+              )}
 
-            {activeTab === 'historial' && (
-              <QuoteHistory 
-                quotes={quotes}
-                onSelectQuote={handleSelectQuoteFromHistory}
-                onPreviewPdf={(q) => setPreviewQuote(q)}
-                onRefresh={loadData}
-              />
-            )}
+              {activeTab === 'materiales' && (
+                <MaterialsCatalog 
+                  materials={materials}
+                  onRefresh={loadData}
+                  onSelectItemForQuote={handleInsertMaterialIntoActiveQuote}
+                />
+              )}
 
-            {activeTab === 'configuracion' && (
-              <SettingsView 
-                config={config}
-                onRefresh={loadData}
-              />
-            )}
+              {activeTab === 'historial' && (
+                <QuoteHistory 
+                  quotes={quotes}
+                  onSelectQuote={handleSelectQuoteFromHistory}
+                  onPreviewPdf={(q) => setPreviewQuote(q)}
+                  onRefresh={loadData}
+                />
+              )}
+
+              {activeTab === 'configuracion' && (
+                <SettingsView 
+                  config={config}
+                  onRefresh={loadData}
+                />
+              )}
+            </div>
           </div>
         </main>
       </div>
