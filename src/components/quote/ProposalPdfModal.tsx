@@ -177,11 +177,11 @@ export const ProposalPdfModal: React.FC<ProposalPdfModalProps> = ({
             {/* MEMBRETE INSTITUCIONAL CONOBRAS */}
             <div className="flex justify-between items-start border-b-2 border-[#1A202C] pb-6 mb-6">
               <div className="flex items-center gap-4">
-                <div className="h-16 w-16 p-1 flex items-center justify-center">
+                <div className="h-16 w-24 p-1 flex items-center justify-center">
                   <img 
                     src="./assets/conobras-logo.png" 
                     alt="Conobras" 
-                    className="h-full w-full object-contain"
+                    className="max-h-full max-w-full object-contain filter drop-shadow-md"
                     onError={(e) => {
                       (e.target as HTMLElement).style.display = 'none';
                     }}

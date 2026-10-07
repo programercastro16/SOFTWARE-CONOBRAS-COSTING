@@ -31,21 +31,26 @@ class StorageService {
   async getQuotes(): Promise<Cotizacion[]> {
     if (window.electronAPI?.getQuotes) {
       try {
-        return await window.electronAPI.getQuotes();
+        const electronQuotes = await window.electronAPI.getQuotes();
+        // Filtrar cualquier cotización muestra de desarrollo previa
+        return (electronQuotes || []).filter(q => q.id !== 'cot-001');
       } catch (e) {
         console.warn('Fallback a local storage para cotizaciones:', e);
       }
     }
     const data = localStorage.getItem(STORAGE_KEYS.QUOTES);
     if (!data) {
-      const initial = [SAMPLE_COTIZACION];
-      localStorage.setItem(STORAGE_KEYS.QUOTES, JSON.stringify(initial));
-      return initial;
+      return [];
     }
     try {
-      return JSON.parse(data);
+      const parsed: Cotizacion[] = JSON.parse(data);
+      const filtered = parsed.filter(q => q.id !== 'cot-001');
+      if (filtered.length !== parsed.length) {
+        localStorage.setItem(STORAGE_KEYS.QUOTES, JSON.stringify(filtered));
+      }
+      return filtered;
     } catch {
-      return [SAMPLE_COTIZACION];
+      return [];
     }
   }
 

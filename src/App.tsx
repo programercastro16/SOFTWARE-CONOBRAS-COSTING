@@ -8,7 +8,34 @@ import { SettingsView } from './components/settings/SettingsView';
 import { ProposalPdfModal } from './components/quote/ProposalPdfModal';
 import { Cotizacion, Insumo, ConfiguracionEmpresa } from './types';
 import { storageService } from './services/storageService';
-import { SAMPLE_COTIZACION, DEFAULT_CONFIG } from './data/seedData';
+import { DEFAULT_CONFIG } from './data/seedData';
+
+// Generador de cotización completamente vacía (sin datos prellenados)
+const createEmptyQuote = (cfg?: ConfiguracionEmpresa, count = 0): Cotizacion => {
+  const year = new Date().getFullYear();
+  return {
+    id: `cot-${Date.now()}`,
+    codigo: `CNB-${year}-${String(count + 1).padStart(3, '0')}`,
+    cliente: '',
+    telefono: '',
+    email: '',
+    proyecto: '',
+    ubicacion: '',
+    fecha: new Date().toISOString().split('T')[0],
+    validezDias: 15,
+    moneda: cfg?.monedaSimbolo || '$',
+    porcentajeImprevistos: cfg?.porcentajeImprevistosDefault ?? 5,
+    porcentajeGastosGenerales: cfg?.porcentajeGastosGeneralesDefault ?? 8,
+    porcentajeHonorarios: cfg?.porcentajeHonorariosDefault ?? 15,
+    aplicaIva: false,
+    porcentajeIva: cfg?.porcentajeIvaDefault ?? 16,
+    partidas: [],
+    notas: '',
+    estado: 'BORRADOR',
+    creadoEn: new Date().toISOString(),
+    actualizadoEn: new Date().toISOString()
+  };
+};
 
 export const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<ActiveTab>('cotizador');
@@ -16,8 +43,8 @@ export const App: React.FC = () => {
   const [materials, setMaterials] = useState<Insumo[]>([]);
   const [config, setConfig] = useState<ConfiguracionEmpresa>(DEFAULT_CONFIG);
   
-  // Cotización en edición activa
-  const [currentQuote, setCurrentQuote] = useState<Cotizacion>(SAMPLE_COTIZACION);
+  // Cotización en edición activa (inicia completamente vacía para que el usuario empiece de cero)
+  const [currentQuote, setCurrentQuote] = useState<Cotizacion>(() => createEmptyQuote(DEFAULT_CONFIG, 0));
   
   // Cotización para vista previa en modal PDF
   const [previewQuote, setPreviewQuote] = useState<Cotizacion | null>(null);
@@ -38,43 +65,7 @@ export const App: React.FC = () => {
   }, []);
 
   const handleNewQuote = () => {
-    const newQuote: Cotizacion = {
-      id: `cot-${Date.now()}`,
-      codigo: `CNB-${new Date().getFullYear()}-${String(quotes.length + 1).padStart(3, '0')}`,
-      cliente: '',
-      telefono: '',
-      email: '',
-      proyecto: '',
-      ubicacion: '',
-      fecha: new Date().toISOString().split('T')[0],
-      validezDias: 15,
-      moneda: config.monedaSimbolo || '$',
-      porcentajeImprevistos: config.porcentajeImprevistosDefault || 5,
-      porcentajeGastosGenerales: config.porcentajeGastosGeneralesDefault || 8,
-      porcentajeHonorarios: config.porcentajeHonorariosDefault || 15,
-      aplicaIva: false,
-      porcentajeIva: config.porcentajeIvaDefault || 16,
-      partidas: [
-        {
-          id: `partida-1`,
-          titulo: '1. PRELIMINARES Y TERRACERÍAS',
-          items: [
-            {
-              id: `item-${Date.now()}`,
-              descripcion: '',
-              categoria: 'MANO_DE_OBRA',
-              unidad: 'm2',
-              cantidad: 1,
-              precioUnitario: 0
-            }
-          ]
-        }
-      ],
-      notas: '1. Propuesta válida durante 15 días continuos.\n2. Incluye mano de obra especializada y acarreos.',
-      estado: 'BORRADOR',
-      creadoEn: new Date().toISOString(),
-      actualizadoEn: new Date().toISOString()
-    };
+    const newQuote = createEmptyQuote(config, quotes.length);
     setCurrentQuote(newQuote);
     setActiveTab('cotizador');
   };

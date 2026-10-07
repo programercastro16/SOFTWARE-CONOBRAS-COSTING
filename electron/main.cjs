@@ -46,13 +46,17 @@ function initDatabase() {
 }
 
 function createWindow() {
+  const iconPath = process.platform === 'win32'
+    ? path.join(__dirname, '../assets/conobras-logo.ico')
+    : path.join(__dirname, '../assets/conobras-logo.png');
+
   mainWindow = new BrowserWindow({
     width: 1400,
     height: 900,
     minWidth: 1024,
     minHeight: 700,
     backgroundColor: '#0A0D12',
-    icon: path.join(__dirname, '../assets/conobras-logo.png'),
+    icon: iconPath,
     title: 'Conobras Quote - Presupuestos y Costos Arquitectónicos',
     webPreferences: {
       preload: path.join(__dirname, 'preload.cjs'),
@@ -60,6 +64,14 @@ function createWindow() {
       contextIsolation: true,
     }
   });
+
+  if (fs.existsSync(iconPath)) {
+    try {
+      mainWindow.setIcon(iconPath);
+    } catch (e) {
+      console.warn('No se pudo establecer el icono de la ventana:', e);
+    }
+  }
 
   mainWindow.setMenuBarVisibility(false);
 
@@ -250,6 +262,11 @@ function setupIpcHandlers() {
 }
 
 app.whenReady().then(() => {
+  // Configurar ID de aplicación para Windows (fija el icono del software en la barra de tareas)
+  if (process.platform === 'win32') {
+    app.setAppUserModelId('com.conobras.costing.app');
+  }
+
   // Configurar menú de edición estándar (habilita Ctrl+C, Ctrl+V, Ctrl+X, Ctrl+Z, Ctrl+A en Windows)
   const template = [
     {

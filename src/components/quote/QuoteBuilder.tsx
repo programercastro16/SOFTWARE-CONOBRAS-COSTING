@@ -177,26 +177,13 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({
   const handleAddPartida = () => {
     const newPartida: Partida = {
       id: `partida-${Date.now()}`,
-      titulo: `${quote.partidas.length + 1}. NUEVA PARTIDA DE OBRA`,
-      items: [
-        {
-          id: `item-${Date.now()}`,
-          descripcion: 'Concepto de obra inicial...',
-          categoria: 'MATERIAL',
-          unidad: 'm2',
-          cantidad: 1,
-          precioUnitario: 0
-        }
-      ]
+      titulo: `${quote.partidas.length + 1}. PARTIDA DE OBRA`,
+      items: []
     };
     updateQuote({ ...quote, partidas: [...quote.partidas, newPartida] });
   };
 
   const handleRemovePartida = (partidaId: string) => {
-    if (quote.partidas.length <= 1) {
-      alert('Debe existir al menos una partida en la cotización.');
-      return;
-    }
     updateQuote({
       ...quote,
       partidas: quote.partidas.filter(p => p.id !== partidaId)
@@ -312,11 +299,11 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({
       {/* BARRA SUPERIOR: BRANDING, ESTADO Y ACCIONES PRINCIPALES */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 rounded-xl bg-[#12161F] border border-[#252D3D] shadow-xl">
         <div className="flex items-center gap-4">
-          <div className="h-12 w-12 rounded-xl bg-black/60 border border-[#D4AF37]/40 p-1 flex items-center justify-center shadow-lg shrink-0">
+          <div className="h-16 w-24 rounded-xl bg-[#0E121A] border border-[#D4AF37]/50 p-2 flex items-center justify-center shadow-lg shadow-black/60 shrink-0">
             <img 
               src="./assets/conobras-logo.png" 
               alt="Conobras" 
-              className="h-full w-full object-contain"
+              className="max-h-full max-w-full object-contain filter drop-shadow-[0_2px_10px_rgba(212,175,55,0.45)]"
               onError={(e) => {
                 (e.target as HTMLElement).style.display = 'none';
               }}
@@ -514,7 +501,30 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({
           </button>
         </div>
 
-        {calculos.partidasCalculadas.map((partida) => (
+        {calculos.partidasCalculadas.length === 0 ? (
+          <div className="p-10 rounded-xl bg-[#12161F] border border-dashed border-[#252D3D] text-center flex flex-col items-center justify-center space-y-4 shadow-inner">
+            <div className="h-14 w-14 rounded-full bg-[#1A202C] border border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37]">
+              <Layers size={24} />
+            </div>
+            <div className="max-w-md">
+              <h4 className="text-sm font-semibold text-white mb-1">Cotización lista para comenzar</h4>
+              <p className="text-xs text-[#8A94A6] leading-relaxed">
+                No hay partidas registradas en este presupuesto. Agrega tu primera partida para comenzar a desglosar conceptos y cómputos métricos a tu gusto.
+              </p>
+            </div>
+            <div className="flex items-center gap-3 pt-2">
+              <button
+                type="button"
+                onClick={handleAddPartida}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-[#D4AF37] to-[#AA8820] hover:from-[#E6C65A] hover:to-[#D4AF37] text-black font-semibold text-xs shadow-lg shadow-[#D4AF37]/20 transition-all active:scale-95"
+              >
+                <Plus size={15} />
+                <span>Añadir Primera Partida</span>
+              </button>
+            </div>
+          </div>
+        ) : (
+          calculos.partidasCalculadas.map((partida) => (
           <div 
             key={partida.id} 
             className="rounded-xl bg-[#12161F] border border-[#252D3D] overflow-hidden shadow-xl"
@@ -525,8 +535,9 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({
                 <input 
                   type="text" 
                   value={partida.titulo} 
+                  placeholder="Título de la partida (ej. 1. TRABAJOS PRELIMINARES)"
                   onChange={(e) => handleUpdatePartidaTitulo(partida.id, e.target.value)}
-                  className="w-full bg-transparent font-bold text-xs uppercase tracking-wider text-[#F3F5F8] focus:outline-none focus:bg-[#1A202C] px-2 py-1 rounded transition-colors"
+                  className="w-full bg-transparent font-bold text-xs uppercase tracking-wider text-[#F3F5F8] placeholder-[#8A94A6]/50 focus:outline-none focus:bg-[#1A202C] px-2 py-1 rounded transition-colors"
                 />
               </div>
               <div className="flex items-center gap-4">
@@ -563,7 +574,24 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[#252D3D]/40">
-                  {partida.items.map((item, itemIdx) => {
+                  {partida.items.length === 0 ? (
+                    <tr>
+                      <td colSpan={9} className="py-7 text-center text-[#8A94A6]">
+                        <div className="flex flex-col items-center justify-center gap-2">
+                          <span className="text-xs">Esta partida no tiene conceptos aún.</span>
+                            <button
+                              type="button"
+                              onClick={() => handleAddItem(partida.id)}
+                              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#1A202C] hover:bg-[#252D3D] text-[#D4AF37] border border-[#D4AF37]/30 text-xs font-medium transition-all"
+                            >
+                              <Plus size={13} />
+                              <span>Agregar Concepto</span>
+                            </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ) : (
+                    partida.items.map((item, itemIdx) => {
                     const importe = Number(item.cantidad || 0) * Number(item.precioUnitario || 0);
                     return (
                       <tr key={item.id} className="hover:bg-[#1A202C]/40 transition-colors">
@@ -634,7 +662,8 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({
                         </td>
                       </tr>
                     );
-                  })}
+                  })
+                )}
                 </tbody>
               </table>
 
@@ -649,7 +678,8 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({
               </div>
             </div>
           </div>
-        ))}
+        ))
+      )}
       </div>
 
       {/* LIQUIDACIÓN DE COSTOS, INDIRECTOS Y HONORARIOS */}

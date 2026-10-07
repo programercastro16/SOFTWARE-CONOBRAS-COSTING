@@ -57,29 +57,41 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside className="w-64 bg-[#0E121A] border-r border-[#252D3D] flex flex-col justify-between select-none shrink-0 no-print">
-      {/* BRANDING HEADER CON LOGO OFICIAL */}
+      {/* BRANDING HEADER CON LOGO OFICIAL CONOBRAS */}
       <div>
-        <div className="p-5 border-b border-[#252D3D]">
-          <div className="flex items-center gap-3">
-            <div className="h-11 w-11 rounded-lg bg-black/60 border border-[#D4AF37]/40 p-1 flex items-center justify-center shadow-lg">
-              <img 
-                src="./assets/conobras-logo.png" 
-                alt="Conobras" 
-                className="h-full w-full object-contain"
-                onError={(e) => {
-                  (e.target as HTMLElement).style.display = 'none';
-                }}
-              />
+        <div className="p-5 border-b border-[#252D3D] bg-gradient-to-b from-[#141923] to-[#0E121A]">
+          <div className="flex flex-col items-center justify-center text-center">
+            {/* Contenedor del Logo Dorado con Glow destacado */}
+            <div className="relative group mb-2.5 flex items-center justify-center">
+              <div className="absolute inset-0 bg-[#D4AF37]/25 blur-xl rounded-full scale-110 pointer-events-none group-hover:bg-[#D4AF37]/35 transition-all duration-500"></div>
+              
+              <div className="relative h-20 w-36 flex items-center justify-center p-1 transition-transform duration-300 group-hover:scale-105">
+                <img 
+                  src="./assets/conobras-logo.png" 
+                  alt="Conobras - Logo Oficial" 
+                  className="max-h-full max-w-full object-contain filter drop-shadow-[0_4px_14px_rgba(212,175,55,0.45)]"
+                  onError={(e) => {
+                    (e.target as HTMLElement).style.display = 'none';
+                  }}
+                />
+              </div>
             </div>
-            <div>
-              <div className="flex items-center gap-1.5">
-                <span className="font-extrabold text-sm tracking-wider text-white uppercase">CONOBRAS</span>
-                <span className="text-[10px] px-1.5 py-0.2 rounded bg-[#D4AF37]/15 text-[#D4AF37] font-mono border border-[#D4AF37]/30">QUOTE</span>
-              </div>
-              <div className="text-[10px] text-[#8A94A6] tracking-tight flex items-center gap-1 mt-0.5">
-                <span>Construcción + Arq</span>
-                <span className="h-1.5 w-1.5 rounded-full bg-[#48BB78]"></span>
-              </div>
+
+            {/* Tipografía de la marca */}
+            <div className="flex items-center gap-1.5 justify-center">
+              <span className="font-extrabold text-base tracking-[0.2em] text-white uppercase font-sans">
+                CONOBRAS
+              </span>
+              <span className="text-[10px] px-2 py-0.5 rounded bg-[#D4AF37]/20 text-[#D4AF37] font-mono font-bold border border-[#D4AF37]/40 shadow-sm">
+                QUOTE
+              </span>
+            </div>
+
+            <div className="text-[10px] text-[#8A94A6] tracking-wider uppercase font-semibold flex items-center gap-1.5 mt-1">
+              <span>Construcción</span>
+              <span className="text-[#D4AF37] font-bold">•</span>
+              <span>Arquitectura</span>
+              <span className="h-1.5 w-1.5 rounded-full bg-[#48BB78] ml-0.5 inline-block shadow-[0_0_6px_#48BB78]"></span>
             </div>
           </div>
         </div>
