@@ -15,6 +15,7 @@ declare global {
       getConfig: () => Promise<ConfiguracionEmpresa>;
       saveConfig: (config: ConfiguracionEmpresa) => Promise<boolean>;
       exportPdf: (data: any) => Promise<string>;
+      savePdfFile?: (data: { filename: string; base64Data: string }) => Promise<string | null>;
     };
   }
 }
@@ -141,7 +142,10 @@ class StorageService {
   async getConfig(): Promise<ConfiguracionEmpresa> {
     if (window.electronAPI?.getConfig) {
       try {
-        return await window.electronAPI.getConfig();
+        const conf = await window.electronAPI.getConfig();
+        if (conf && conf.nombreEmpresa) {
+          return conf;
+        }
       } catch (e) {
         console.warn('Fallback a local storage para configuración:', e);
       }
@@ -152,7 +156,8 @@ class StorageService {
       return DEFAULT_CONFIG;
     }
     try {
-      return JSON.parse(data);
+      const parsed = JSON.parse(data);
+      return (parsed && parsed.nombreEmpresa) ? parsed : DEFAULT_CONFIG;
     } catch {
       return DEFAULT_CONFIG;
     }

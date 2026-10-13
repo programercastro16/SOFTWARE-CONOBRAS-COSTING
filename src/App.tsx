@@ -39,6 +39,53 @@ const createEmptyQuote = (cfg?: ConfiguracionEmpresa, count = 0): Cotizacion => 
   };
 };
 
+interface ErrorBoundaryProps {
+  children: React.ReactNode;
+}
+
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error: Error | null;
+}
+
+class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('[Conobras ErrorBoundary]:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="flex flex-col items-center justify-center p-8 m-6 rounded-2xl bg-[#12161F] border border-amber-500/30 text-center shadow-2xl">
+          <h3 className="text-sm font-bold text-[#D4AF37] uppercase tracking-wider mb-2">
+            Aviso de Renderizado
+          </h3>
+          <p className="text-xs text-[#8A94A6] mb-4 max-w-md">
+            {this.state.error?.message || 'Se produjo un error al desplegar este módulo.'}
+          </p>
+          <button
+            type="button"
+            onClick={() => this.setState({ hasError: false, error: null })}
+            className="px-4 py-2 rounded-lg bg-gradient-to-r from-[#D4AF37] to-[#AA8820] text-black font-semibold text-xs transition-all active:scale-95 cursor-pointer"
+          >
+            Reintentar y Recargar Módulo
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 export const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<ActiveTab>('cotizador');
   const [quotes, setQuotes] = useState<Cotizacion[]>([]);
@@ -57,9 +104,9 @@ export const App: React.FC = () => {
       storageService.getMaterials(),
       storageService.getConfig()
     ]);
-    setQuotes(loadedQuotes);
-    setMaterials(loadedMaterials);
-    setConfig(loadedConfig);
+    setQuotes(loadedQuotes || []);
+    setMaterials(loadedMaterials || []);
+    setConfig(loadedConfig || DEFAULT_CONFIG);
   };
 
   useEffect(() => {
@@ -67,13 +114,16 @@ export const App: React.FC = () => {
   }, []);
 
   const handleNewQuote = () => {
-    const newQuote = createEmptyQuote(config, quotes.length);
+    const newQuote = createEmptyQuote(config || DEFAULT_CONFIG, quotes.length);
     setCurrentQuote(newQuote);
     setActiveTab('cotizador');
   };
 
   const handleSelectQuoteFromHistory = (quote: Cotizacion) => {
-    setCurrentQuote(quote);
+    // Deep-clone limpio con timestamp actualizado para forzar re-render completo
+    const freshQuote: Cotizacion = JSON.parse(JSON.stringify(quote));
+    freshQuote.actualizadoEn = new Date().toISOString();
+    setCurrentQuote(freshQuote);
     setActiveTab('cotizador');
   };
 
@@ -140,8 +190,9 @@ export const App: React.FC = () => {
             <div key={activeTab} className="animate-fade-in-up">
               {activeTab === 'cotizador' && (
                 <QuoteBuilder
+                  key={`${currentQuote?.id}-${currentQuote?.actualizadoEn || '0'}`}
                   currentQuote={currentQuote}
-                  config={config}
+                  config={config || DEFAULT_CONFIG}
                   materials={materials}
                   onQuoteSaved={loadData}
                   onOpenPdf={(q) => setPreviewQuote(q)}
@@ -179,11 +230,13 @@ export const App: React.FC = () => {
 
       {/* MODAL DE VISTA PREVIA Y EXPORTACIÓN PDF */}
       {previewQuote && (
-        <ProposalPdfModal
-          quote={previewQuote}
-          config={config}
-          onClose={() => setPreviewQuote(null)}
-        />
+        <ErrorBoundary>
+          <ProposalPdfModal
+            quote={previewQuote}
+            config={config || DEFAULT_CONFIG}
+            onClose={() => setPreviewQuote(null)}
+          />
+        </ErrorBoundary>
       )}
     </div>
   );

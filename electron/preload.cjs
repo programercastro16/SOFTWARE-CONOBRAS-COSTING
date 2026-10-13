@@ -10,5 +10,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
   deleteMaterial: (id) => ipcRenderer.invoke('materials:delete', id),
   getConfig: () => ipcRenderer.invoke('config:get'),
   saveConfig: (config) => ipcRenderer.invoke('config:save', config),
-  exportPdf: (htmlContent) => ipcRenderer.invoke('pdf:export', htmlContent)
+  exportPdf: (htmlContent) => ipcRenderer.invoke('pdf:export', htmlContent),
+  savePdfFile: (data) => ipcRenderer.invoke('pdf:saveFile', data)
 });

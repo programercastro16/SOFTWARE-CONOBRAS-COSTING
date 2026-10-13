@@ -41,16 +41,18 @@ export const QuoteHistory: React.FC<QuoteHistoryProps> = ({
   const [filterStatus, setFilterStatus] = useState<string>('TODOS');
 
   const calculateTotal = (quote: Cotizacion) => {
-    const costoDirecto = quote.partidas.reduce((sumP, p) => {
-      return sumP + p.items.reduce((sumI, i) => sumI + (i.cantidad * i.precioUnitario), 0);
+    const partidas = Array.isArray(quote?.partidas) ? quote.partidas : [];
+    const costoDirecto = partidas.reduce((sumP, p) => {
+      const items = Array.isArray(p?.items) ? p.items : [];
+      return sumP + items.reduce((sumI, i) => sumI + (Number(i?.cantidad || 0) * Number(i?.precioUnitario || 0)), 0);
     }, 0);
 
-    const imprevistos = costoDirecto * (quote.porcentajeImprevistos / 100);
-    const gastosGrales = costoDirecto * (quote.porcentajeGastosGenerales / 100);
+    const imprevistos = costoDirecto * (Number(quote?.porcentajeImprevistos || 0) / 100);
+    const gastosGrales = costoDirecto * (Number(quote?.porcentajeGastosGenerales || 0) / 100);
     const subtotalOp = costoDirecto + imprevistos + gastosGrales;
-    const honorarios = subtotalOp * (quote.porcentajeHonorarios / 100);
+    const honorarios = subtotalOp * (Number(quote?.porcentajeHonorarios || 0) / 100);
     const subtotalSinIva = subtotalOp + honorarios;
-    const iva = quote.aplicaIva ? subtotalSinIva * (quote.porcentajeIva / 100) : 0;
+    const iva = quote?.aplicaIva ? subtotalSinIva * (Number(quote?.porcentajeIva || 0) / 100) : 0;
     return subtotalSinIva + iva;
   };
 
@@ -60,21 +62,21 @@ export const QuoteHistory: React.FC<QuoteHistoryProps> = ({
     let aprobadas = 0;
     let presentadas = 0;
 
-    quotes.forEach(q => {
+    (quotes || []).forEach(q => {
       totalMonto += calculateTotal(q);
       if (q.estado === 'APROBADA') aprobadas++;
       if (q.estado === 'PRESENTADA') presentadas++;
     });
 
-    return { totalMonto, aprobadas, presentadas, totalQuotes: quotes.length };
+    return { totalMonto, aprobadas, presentadas, totalQuotes: (quotes || []).length };
   }, [quotes]);
 
-  const filteredQuotes = quotes.filter(q => {
+  const filteredQuotes = (quotes || []).filter(q => {
     const term = searchTerm.toLowerCase();
-    const matchesSearch = q.codigo.toLowerCase().includes(term) ||
-                          q.proyecto.toLowerCase().includes(term) ||
-                          q.cliente.toLowerCase().includes(term) ||
-                          q.ubicacion.toLowerCase().includes(term);
+    const matchesSearch = (q.codigo || '').toLowerCase().includes(term) ||
+                          (q.proyecto || '').toLowerCase().includes(term) ||
+                          (q.cliente || '').toLowerCase().includes(term) ||
+                          (q.ubicacion || '').toLowerCase().includes(term);
     const matchesStatus = filterStatus === 'TODOS' || q.estado === filterStatus;
     return matchesSearch && matchesStatus;
   });
@@ -294,29 +296,45 @@ export const QuoteHistory: React.FC<QuoteHistoryProps> = ({
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-1.5" onClick={(e) => e.stopPropagation()}>
+                      <div className="flex items-center gap-1.5 relative z-30" onClick={(e) => e.stopPropagation()}>
                         <button
-                          onClick={() => onSelectQuote(quote)}
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            onSelectQuote(quote);
+                          }}
                           title="Editar en Cotizador"
-                          className="flex items-center gap-1 px-2.5 py-1.5 bg-[#D4AF37]/15 hover:bg-[#D4AF37]/25 text-[#D4AF37] border border-[#D4AF37]/30 rounded-lg text-xs font-semibold transition-all active:scale-95 cursor-pointer"
+                          className="flex items-center gap-1 px-3 py-1.5 bg-[#D4AF37]/20 hover:bg-[#D4AF37]/35 text-[#D4AF37] border border-[#D4AF37]/40 rounded-lg text-xs font-bold transition-all active:scale-95 cursor-pointer shadow-sm hover:shadow-[#D4AF37]/20"
                         >
                           <span>Editar</span>
                         </button>
                         <button
-                          onClick={() => onPreviewPdf(quote)}
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            onPreviewPdf(quote);
+                          }}
                           title="Ver Propuesta PDF"
                           className="p-1.5 text-[#8A94A6] hover:text-[#D4AF37] hover:bg-[#1A202C] rounded-lg transition-colors cursor-pointer"
                         >
                           <Eye size={15} />
                         </button>
                         <button
-                          onClick={() => handleDuplicate(quote)}
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            handleDuplicate(quote);
+                          }}
                           title="Duplicar Cotización"
                           className="p-1.5 text-[#8A94A6] hover:text-white hover:bg-[#1A202C] rounded-lg transition-colors cursor-pointer"
                         >
                           <Copy size={15} />
                         </button>
                         <button
+                          type="button"
                           onClick={(e) => handleDelete(quote.id, e)}
                           title="Eliminar de base de datos"
                           className="p-1.5 text-[#8A94A6] hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors cursor-pointer"

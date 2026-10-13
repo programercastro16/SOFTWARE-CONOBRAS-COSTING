@@ -232,6 +232,80 @@ function setupIpcHandlers() {
     return true;
   });
 
+  const defaultCompanyConfig = {
+    nombreEmpresa: 'Conobras',
+    eslogan: 'Construcción + Arquitectura',
+    arquitecto: 'Arq. Thomas Castro',
+    cedulaProfesional: 'CED-ARQ-893421',
+    telefono: '+52 55 4123 9876',
+    email: 'contacto@conobras.com',
+    direccion: 'Av. Arquitectura 1050, Suite 4B',
+    sitioWeb: 'www.conobras.com',
+    monedaSimbolo: '$',
+    porcentajeImprevistosDefault: 5,
+    porcentajeGastosGeneralesDefault: 8,
+    porcentajeHonorariosDefault: 15,
+    porcentajeIvaDefault: 16
+  };
+
+  // --- CONFIGURACIÓN ---
+  ipcMain.handle('config:get', async () => {
+    if (db) {
+      try {
+        const row = db.prepare('SELECT data FROM configuracion WHERE id = 1').get();
+        if (row && row.data) {
+          return JSON.parse(row.data);
+        }
+      } catch (e) {
+        console.error('Error al leer configuración en SQLite:', e);
+      }
+    }
+    const store = getStore();
+    return store.config || defaultCompanyConfig;
+  });
+
+  ipcMain.handle('config:save', async (_, config) => {
+    if (db) {
+      try {
+        const stmt = db.prepare(`
+          INSERT INTO configuracion (id, data)
+          VALUES (1, ?)
+          ON CONFLICT(id) DO UPDATE SET data = excluded.data;
+        `);
+        stmt.run(JSON.stringify(config));
+        return true;
+      } catch (e) {
+        console.error('Error al guardar configuración en SQLite:', e);
+      }
+    }
+    const store = getStore();
+    store.config = config;
+    saveStore(store);
+    return true;
+  });
+
+  // --- GUARDAR ARCHIVO PDF GENERADO ---
+  ipcMain.handle('pdf:saveFile', async (_, { filename, base64Data }) => {
+    if (!mainWindow) return null;
+    try {
+      const { filePath, canceled } = await dialog.showSaveDialog(mainWindow, {
+        title: 'Guardar Propuesta Conobras en PDF',
+        defaultPath: path.join(app.getPath('documents'), filename || `Cotizacion_Conobras_${Date.now()}.pdf`),
+        filters: [{ name: 'Documento PDF (*.pdf)', extensions: ['pdf'] }]
+      });
+
+      if (!canceled && filePath) {
+        const buffer = Buffer.from(base64Data, 'base64');
+        fs.writeFileSync(filePath, buffer);
+        return filePath;
+      }
+      return null;
+    } catch (err) {
+      console.error('Error al guardar archivo PDF:', err);
+      return null;
+    }
+  });
+
   // --- EXPORTAR PDF ---
   ipcMain.handle('pdf:export', async () => {
     if (!mainWindow) return null;

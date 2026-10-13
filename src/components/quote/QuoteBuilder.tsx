@@ -124,12 +124,12 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({
   } | null>(null);
   const [catalogSearch, setCatalogSearch] = useState('');
 
-  // Sincronizar SOLO cuando cambia el ID de la cotización externa (ej. al abrir otra del historial)
+  // Sincronizar cuando cambia la cotización externa (ej. al abrir otra del historial o editar la misma)
   useEffect(() => {
-    if (currentQuote && currentQuote.id !== quote.id) {
+    if (currentQuote) {
       setQuote(currentQuote);
     }
-  }, [currentQuote.id]);
+  }, [currentQuote.id, currentQuote.actualizadoEn]);
 
   // Notificar al componente superior cuando cambie localmente
   const updateQuote = (newQuote: Cotizacion) => {
@@ -141,18 +141,20 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({
 
   // Cálculos matemáticos en tiempo real
   const calculos = useMemo(() => {
-    const partidasCalculadas = quote.partidas.map(p => {
-      const subtotal = p.items.reduce((sum, item) => sum + (Number(item.cantidad || 0) * Number(item.precioUnitario || 0)), 0);
-      return { ...p, subtotal };
+    const partidas = Array.isArray(quote?.partidas) ? quote.partidas : [];
+    const partidasCalculadas = partidas.map(p => {
+      const items = Array.isArray(p?.items) ? p.items : [];
+      const subtotal = items.reduce((sum, item) => sum + (Number(item?.cantidad || 0) * Number(item?.precioUnitario || 0)), 0);
+      return { ...p, items, subtotal };
     });
 
     const costoDirectoTotal = partidasCalculadas.reduce((sum, p) => sum + p.subtotal, 0);
-    const montoImprevistos = costoDirectoTotal * (Number(quote.porcentajeImprevistos || 0) / 100);
-    const montoGastosGenerales = costoDirectoTotal * (Number(quote.porcentajeGastosGenerales || 0) / 100);
+    const montoImprevistos = costoDirectoTotal * (Number(quote?.porcentajeImprevistos || 0) / 100);
+    const montoGastosGenerales = costoDirectoTotal * (Number(quote?.porcentajeGastosGenerales || 0) / 100);
     const subtotalOperativo = costoDirectoTotal + montoImprevistos + montoGastosGenerales;
-    const montoHonorarios = subtotalOperativo * (Number(quote.porcentajeHonorarios || 0) / 100);
+    const montoHonorarios = subtotalOperativo * (Number(quote?.porcentajeHonorarios || 0) / 100);
     const subtotalAntesIva = subtotalOperativo + montoHonorarios;
-    const montoIva = quote.aplicaIva ? subtotalAntesIva * (Number(quote.porcentajeIva || 0) / 100) : 0;
+    const montoIva = quote?.aplicaIva ? subtotalAntesIva * (Number(quote?.porcentajeIva || 0) / 100) : 0;
     const totalFinal = subtotalAntesIva + montoIva;
 
     return {
@@ -287,9 +289,9 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({
     setCatalogSearch('');
   };
 
-  const filteredCatalog = materials.filter(m => 
-    m.descripcion.toLowerCase().includes(catalogSearch.toLowerCase()) ||
-    m.codigo.toLowerCase().includes(catalogSearch.toLowerCase())
+  const filteredCatalog = (materials || []).filter(m => 
+    (m?.descripcion || '').toLowerCase().includes(catalogSearch.toLowerCase()) ||
+    (m?.codigo || '').toLowerCase().includes(catalogSearch.toLowerCase())
   );
 
   const formatMoneda = (valor: number) => {

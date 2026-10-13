@@ -259,9 +259,16 @@
 
 /* Print Styles for PDF / Paper Generation */
 @media print {
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
   body {
     background: #FFFFFF !important;
     color: #1A202C !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
   .no-print {
@@ -278,5 +285,22 @@
     padding: 0 !important;
     background: #FFFFFF !important;
     color: #1A202C !important;
+  }
+
+  /* Ocultar todo excepto el contenido del PDF */
+  .fixed {
+    position: static !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+  }
+
+  [data-pdf-content] {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 20mm !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    background: #FFFFFF !important;
   }
 }

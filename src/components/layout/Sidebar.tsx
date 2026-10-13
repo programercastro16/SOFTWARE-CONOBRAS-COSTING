@@ -1,9 +1,9 @@
 import React from 'react';
-import { 
-  Calculator, 
-  Layers, 
-  History, 
-  Settings, 
+import {
+  Calculator,
+  Layers,
+  History,
+  Settings,
   Box,
   Compass,
   Cpu,
@@ -23,8 +23,8 @@ interface SidebarProps {
   materialsCount: number;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ 
-  activeTab, 
+export const Sidebar: React.FC<SidebarProps> = ({
+  activeTab,
   setActiveTab,
   quotesCount,
   materialsCount
@@ -81,11 +81,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
               {/* Contenedor del Logo Conobras con Glow */}
               <div className="relative mb-2 flex items-center justify-center cursor-pointer">
                 <div className="absolute inset-0 bg-[#D4AF37]/25 blur-xl rounded-full scale-110 pointer-events-none animate-pulse-slow" />
-                
+
                 <div className="relative h-16 w-32 flex items-center justify-center p-1 transition-transform duration-300 group-hover:scale-105">
-                  <img 
-                    src="./assets/conobras-logo.png" 
-                    alt="Conobras - Logo Oficial" 
+                  <img
+                    src="./assets/conobras-logo.png"
+                    alt="Conobras - Logo Oficial"
                     className="max-h-full max-w-full object-contain filter drop-shadow-[0_4px_14px_rgba(212,175,55,0.45)]"
                     onError={(e) => {
                       (e.target as HTMLElement).style.display = 'none';
@@ -130,8 +130,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 onClick={() => setActiveTab(item.id)}
                 className={`
                   w-full relative flex items-center justify-between px-3 py-2.5 rounded-xl transition-all duration-200 text-left cursor-pointer group
-                  ${isActive 
-                    ? 'bg-gradient-to-r from-[#1C2333] to-[#141923] text-white border border-[#D4AF37]/50 shadow-md gold-glow-sm translate-x-1' 
+                  ${isActive
+                    ? 'bg-gradient-to-r from-[#1C2333] to-[#141923] text-white border border-[#D4AF37]/50 shadow-md gold-glow-sm translate-x-1'
                     : 'text-[#8A94A6] hover:text-[#F3F5F8] hover:bg-[#141822] hover:translate-x-0.5 border border-transparent'
                   }
                 `}
@@ -142,9 +142,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 )}
 
                 <div className="flex items-center gap-3">
-                  <div className={`p-1.5 rounded-lg transition-transform duration-200 group-hover:scale-110 ${
-                    isActive ? 'bg-[#D4AF37]/20 text-[#D4AF37] shadow-sm' : 'text-[#8A94A6]'
-                  }`}>
+                  <div className={`p-1.5 rounded-lg transition-transform duration-200 group-hover:scale-110 ${isActive ? 'bg-[#D4AF37]/20 text-[#D4AF37] shadow-sm' : 'text-[#8A94A6]'
+                    }`}>
                     <Icon size={17} />
                   </div>
                   <div>
@@ -158,9 +157,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 </div>
 
                 {item.badge !== null && (
-                  <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full font-bold transition-all ${
-                    isActive ? 'bg-[#D4AF37] text-black shadow-sm' : 'bg-[#1A202C] text-[#8A94A6]'
-                  }`}>
+                  <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full font-bold transition-all ${isActive ? 'bg-[#D4AF37] text-black shadow-sm' : 'bg-[#1A202C] text-[#8A94A6]'
+                    }`}>
                     {item.badge}
                   </span>
                 )}
