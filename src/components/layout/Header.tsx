@@ -36,19 +36,19 @@ export const Header: React.FC<HeaderProps> = ({
   });
 
   return (
-    <header className="h-16 border-b border-[#252D3D] bg-[#0E121A]/90 backdrop-blur-xl px-6 flex items-center justify-between no-print z-10 select-none">
+    <header className="h-16 border-b border-[#C5CAD2] bg-[#E5E9EE]/95 backdrop-blur-xl px-6 flex items-center justify-between no-print z-10 select-none shadow-sm">
       {/* SECCIÓN IZQUIERDA: SLOGAN DINÁMICO ANIMADO Y FECHA/HORA DE ESTUDIO */}
       <div className="flex items-center gap-4">
         {/* Reloj de Precisión de Obra */}
-        <div className="hidden sm:flex items-center gap-2 text-xs text-[#8A94A6] font-mono bg-[#141822]/70 px-2.5 py-1 rounded-lg border border-[#252D3D]">
-          <Clock size={12} className="text-[#D4AF37]" />
+        <div className="hidden sm:flex items-center gap-2 text-xs text-[#586274] font-mono bg-white/80 px-2.5 py-1 rounded-lg border border-[#C5CAD2] shadow-sm">
+          <Clock size={12} className="text-[#9E7A18]" />
           <span className="capitalize">{currentDate}</span>
-          <span className="text-[#D4AF37]">•</span>
-          <span className="text-white font-bold">{timeStr}</span>
+          <span className="text-[#9E7A18]">•</span>
+          <span className="text-[#111622] font-bold">{timeStr}</span>
         </div>
 
         {/* Separador */}
-        <span className="hidden sm:inline text-[#252D3D]">•</span>
+        <span className="hidden sm:inline text-[#B4B7BC]">•</span>
 
         {/* Headline Dinámico con Efecto Typewriter */}
         <div className="hidden md:block">

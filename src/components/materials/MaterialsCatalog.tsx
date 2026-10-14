@@ -189,28 +189,28 @@ export const MaterialsCatalog: React.FC<MaterialsCatalogProps> = ({
   const getCategoryBadge = (cat: InsumoCategoria) => {
     switch (cat) {
       case 'MATERIAL':
-        return <span className="px-2 py-0.5 rounded text-[10px] bg-blue-500/10 text-blue-400 border border-blue-500/20">Material</span>;
+        return <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-blue-50 text-blue-700 border border-blue-200">Material</span>;
       case 'MANO_DE_OBRA':
-        return <span className="px-2 py-0.5 rounded text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20">Mano de Obra</span>;
+        return <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-amber-50 text-amber-700 border border-amber-200">Mano de Obra</span>;
       case 'EQUIPO':
-        return <span className="px-2 py-0.5 rounded text-[10px] bg-purple-500/10 text-purple-400 border border-purple-500/20">Equipo</span>;
+        return <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-purple-50 text-purple-700 border border-purple-200">Equipo</span>;
       case 'SUBCONTRATO':
-        return <span className="px-2 py-0.5 rounded text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Subcontrato</span>;
+        return <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">Subcontrato</span>;
     }
   };
 
   return (
     <div className="space-y-6">
       {/* HEADER DEL CATÁLOGO */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-[#12161F] border border-[#252D3D] shadow-xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-white border border-[#C5CAD2] shadow-sm">
         <div>
           <div className="flex items-center gap-2">
-            <Boxes className="text-[#D4AF37]" size={22} />
-            <h2 className="text-lg font-bold text-white tracking-wide uppercase">
+            <Boxes className="text-[#9E7A18]" size={22} />
+            <h2 className="text-lg font-bold text-[#111622] tracking-wide uppercase">
               Catálogo de Materiales & Insumos
             </h2>
           </div>
-          <p className="text-xs text-[#8A94A6] mt-0.5">
+          <p className="text-xs text-[#586274] mt-0.5">
             Base de datos de precios unitarios Conobras. Haz clic sobre cualquier precio para editarlo en tiempo real.
           </p>
         </div>
@@ -225,7 +225,7 @@ export const MaterialsCatalog: React.FC<MaterialsCatalogProps> = ({
             size="sm"
             onClick={handleResetCatalog}
             title="Cargar catálogo base recomendado"
-            icon={<RotateCcw size={14} />}
+            icon={<RotateCcw size={14} className="text-[#586274]" />}
           >
             Restablecer
           </InteractiveButton>
@@ -246,13 +246,13 @@ export const MaterialsCatalog: React.FC<MaterialsCatalogProps> = ({
       {/* FILTROS Y BÚSQUEDA */}
       <div className="flex flex-col md:flex-row gap-3">
         <div className="relative flex-1">
-          <Search size={16} className="absolute left-3.5 top-3 text-[#8A94A6]" />
+          <Search size={16} className="absolute left-3.5 top-3 text-[#8E99A8]" />
           <input
             type="text"
             placeholder="Buscar por descripción (ej. cemento, varilla, cuadrilla, andamio) o código..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full bg-[#12161F] border border-[#252D3D] rounded-xl pl-10 pr-4 py-2.5 text-xs text-white placeholder-[#8A94A6] focus:outline-none focus:border-[#D4AF37] transition-colors"
+            className="w-full bg-white border border-[#C8CDD5] rounded-xl pl-10 pr-4 py-2.5 text-xs text-[#111622] placeholder-[#8E99A8] focus:outline-none focus:border-[#D4AF37] transition-colors shadow-sm"
           />
         </div>
 
@@ -261,10 +261,10 @@ export const MaterialsCatalog: React.FC<MaterialsCatalogProps> = ({
             <button
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
-              className={`px-3 py-2 rounded-xl text-xs whitespace-nowrap transition-colors border ${
+              className={`px-3 py-2 rounded-xl text-xs whitespace-nowrap transition-colors border cursor-pointer ${
                 selectedCategory === cat.id
-                  ? 'bg-[#1A202C] text-[#D4AF37] border-[#D4AF37]/40 font-semibold'
-                  : 'bg-[#12161F] text-[#8A94A6] border-[#252D3D] hover:text-white hover:bg-[#1A202C]'
+                  ? 'bg-white text-[#9E7A18] border-[#D4AF37] font-bold shadow-sm'
+                  : 'bg-white/80 text-[#586274] border-[#C5CAD2] hover:text-[#111622] hover:bg-white'
               }`}
             >
               {cat.label}
@@ -274,13 +274,13 @@ export const MaterialsCatalog: React.FC<MaterialsCatalogProps> = ({
       </div>
 
       {/* TABLA DE INSUMOS */}
-      <div className="rounded-xl bg-[#12161F] border border-[#252D3D] overflow-hidden shadow-xl">
+      <div className="rounded-2xl bg-white border border-[#C5CAD2] overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="bg-[#161C27] text-[#8A94A6] uppercase tracking-wider border-b border-[#252D3D]">
+              <tr className="bg-[#EEF1F5] text-[#586274] uppercase tracking-wider border-b border-[#C5CAD2] font-semibold">
                 <th className="py-3 px-4 w-28 font-mono">Código</th>
-                <th className="py-3 px-4 font-semibold">Descripción del Insumo / Concepto</th>
+                <th className="py-3 px-4">Descripción del Insumo / Concepto</th>
                 <th className="py-3 px-4 w-32">Categoría</th>
                 <th className="py-3 px-4 w-24 text-center font-mono">Unidad</th>
                 <th className="py-3 px-4 w-40 text-right font-mono">Precio Unitario</th>
@@ -288,10 +288,10 @@ export const MaterialsCatalog: React.FC<MaterialsCatalogProps> = ({
                 <th className="py-3 px-4 w-36 text-right">Acciones</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#252D3D]/50">
+            <tbody className="divide-y divide-[#E2E6EB]">
               {filteredMaterials.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="py-12 text-center text-[#8A94A6]">
+                  <td colSpan={7} className="py-12 text-center text-[#586274]">
                     No se encontraron insumos con los filtros actuales.
                   </td>
                 </tr>
@@ -300,17 +300,17 @@ export const MaterialsCatalog: React.FC<MaterialsCatalogProps> = ({
                   const isInlineEditing = inlineEditingId === item.id;
 
                   return (
-                    <tr key={item.id} className="hover:bg-[#1A202C]/60 transition-colors group">
-                      <td className="py-3 px-4 font-mono text-[11px] text-[#8A94A6]">{item.codigo}</td>
-                      <td className="py-3 px-4 font-medium text-white">
+                    <tr key={item.id} className="hover:bg-[#F8F9FA] transition-colors group">
+                      <td className="py-3 px-4 font-mono text-[11px] text-[#586274] font-medium">{item.codigo}</td>
+                      <td className="py-3 px-4 font-medium text-[#111622]">
                         <div>{item.descripcion}</div>
                       </td>
                       <td className="py-3 px-4">{getCategoryBadge(item.categoria)}</td>
-                      <td className="py-3 px-4 text-center font-mono text-[#8A94A6]">{item.unidad}</td>
+                      <td className="py-3 px-4 text-center font-mono text-[#586274]">{item.unidad}</td>
                       <td className="py-3 px-4 text-right font-mono">
                         {isInlineEditing ? (
                           <div className="flex items-center justify-end gap-1">
-                            <span className="text-[#D4AF37] font-bold">$</span>
+                            <span className="text-[#9E7A18] font-bold">$</span>
                             <NumericInput
                               value={inlinePrice}
                               autoFocus
@@ -319,11 +319,11 @@ export const MaterialsCatalog: React.FC<MaterialsCatalogProps> = ({
                                 if (e.key === 'Enter') handleSaveInlineEdit(item);
                                 if (e.key === 'Escape') setInlineEditingId(null);
                               }}
-                              className="w-24 bg-[#1A202C] border border-[#D4AF37] rounded px-1.5 py-0.5 text-right font-mono text-[#D4AF37] font-bold text-xs focus:outline-none"
+                              className="w-24 bg-white border border-[#D4AF37] rounded px-1.5 py-0.5 text-right font-mono text-[#AA8820] font-bold text-xs focus:outline-none"
                             />
                             <button
                               onClick={() => handleSaveInlineEdit(item)}
-                              className="p-1 bg-[#D4AF37] text-black rounded hover:bg-[#E6C65A]"
+                              className="p-1 bg-[#D4AF37] text-black rounded hover:bg-[#E6C65A] cursor-pointer"
                               title="Guardar precio"
                             >
                               <Check size={12} />
@@ -333,13 +333,13 @@ export const MaterialsCatalog: React.FC<MaterialsCatalogProps> = ({
                           <span 
                             onClick={() => handleStartInlineEdit(item)}
                             title="Haz clic para editar precio rápidamente"
-                            className="font-bold text-[#D4AF37] cursor-pointer hover:underline hover:text-[#E6C65A] py-1 px-1.5 rounded hover:bg-[#1A202C]"
+                            className="font-bold text-[#AA8820] cursor-pointer hover:underline hover:text-[#9E7A18] py-1 px-1.5 rounded hover:bg-[#F5F6F9]"
                           >
                             $ {item.precioUnitario.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           </span>
                         )}
                       </td>
-                      <td className="py-3 px-4 text-center font-mono text-[10px] text-[#8A94A6]">
+                      <td className="py-3 px-4 text-center font-mono text-[10px] text-[#586274]">
                         {item.fechaActualizacion}
                       </td>
                       <td className="py-3 px-4 text-right">
@@ -348,21 +348,21 @@ export const MaterialsCatalog: React.FC<MaterialsCatalogProps> = ({
                             <button
                               onClick={() => onSelectItemForQuote(item)}
                               title="Insertar en Cotizador Activo"
-                              className="p-1.5 text-[#D4AF37] hover:bg-[#D4AF37]/15 rounded transition-colors"
+                              className="p-1.5 text-[#9E7A18] hover:bg-[#D4AF37]/15 rounded transition-colors cursor-pointer"
                             >
                               <Plus size={14} />
                             </button>
                           )}
                           <button
                             onClick={() => handleOpenEdit(item)}
-                            className="flex items-center gap-1 px-2 py-1 text-[#8A94A6] hover:text-white hover:bg-[#1A202C] border border-[#252D3D] rounded text-[11px] transition-colors"
+                            className="flex items-center gap-1 px-2 py-1 text-[#586274] hover:text-[#111622] hover:bg-[#EEF1F5] border border-[#C5CAD2] rounded text-[11px] transition-colors cursor-pointer"
                           >
                             <Edit2 size={12} />
                             <span>Editar</span>
                           </button>
                           <button
                             onClick={() => handleDelete(item.id)}
-                            className="p-1.5 text-[#8A94A6] hover:text-red-400 hover:bg-red-500/10 rounded transition-colors"
+                            className="p-1.5 text-[#586274] hover:text-red-600 hover:bg-red-50 rounded transition-colors cursor-pointer"
                             title="Eliminar insumo"
                           >
                             <Trash2 size={13} />
@@ -380,16 +380,16 @@ export const MaterialsCatalog: React.FC<MaterialsCatalogProps> = ({
 
       {/* MODAL NUEVO / EDITAR INSUMO */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-[#12161F] border border-[#252D3D] rounded-2xl w-full max-w-md overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-150">
-            <div className="flex items-center justify-between p-5 border-b border-[#252D3D] bg-[#161C27]">
-              <h3 className="font-bold text-sm text-white uppercase tracking-wider flex items-center gap-2">
-                <Tag size={16} className="text-[#D4AF37]" />
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white border border-[#C5CAD2] rounded-2xl w-full max-w-md overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-150">
+            <div className="flex items-center justify-between p-5 border-b border-[#C5CAD2] bg-[#EEF1F5]">
+              <h3 className="font-bold text-sm text-[#111622] uppercase tracking-wider flex items-center gap-2">
+                <Tag size={16} className="text-[#9E7A18]" />
                 <span>{editingItem ? 'Editar Insumo de Obra' : 'Nuevo Insumo de Catálogo'}</span>
               </h3>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="text-[#8A94A6] hover:text-white p-1 rounded-lg"
+                className="text-[#586274] hover:text-[#111622] p-1 rounded-lg cursor-pointer"
               >
                 <X size={18} />
               </button>
@@ -398,21 +398,21 @@ export const MaterialsCatalog: React.FC<MaterialsCatalogProps> = ({
             <form onSubmit={handleSaveModal} className="p-6 space-y-4">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-[11px] text-[#8A94A6] block mb-1">Código</label>
+                  <label className="text-[11px] text-[#586274] block mb-1">Código</label>
                   <input
                     type="text"
                     value={formData.codigo || ''}
                     onChange={(e) => setFormData({ ...formData, codigo: e.target.value })}
-                    className="w-full bg-[#1A202C] border border-[#252D3D] focus:border-[#D4AF37] rounded-lg px-3 py-2 text-xs font-mono text-white focus:outline-none"
+                    className="w-full bg-[#F8F9FA] border border-[#C8CDD5] focus:border-[#D4AF37] rounded-lg px-3 py-2 text-xs font-mono text-[#111622] focus:outline-none"
                     required
                   />
                 </div>
                 <div>
-                  <label className="text-[11px] text-[#8A94A6] block mb-1">Categoría</label>
+                  <label className="text-[11px] text-[#586274] block mb-1">Categoría</label>
                   <select
                     value={formData.categoria}
                     onChange={(e) => setFormData({ ...formData, categoria: e.target.value as InsumoCategoria })}
-                    className="w-full bg-[#1A202C] border border-[#252D3D] focus:border-[#D4AF37] rounded-lg px-3 py-2 text-xs text-white focus:outline-none"
+                    className="w-full bg-[#F8F9FA] border border-[#C8CDD5] focus:border-[#D4AF37] rounded-lg px-3 py-2 text-xs text-[#111622] focus:outline-none"
                   >
                     <option value="MATERIAL">Material</option>
                     <option value="MANO_DE_OBRA">Mano de Obra</option>
@@ -423,50 +423,50 @@ export const MaterialsCatalog: React.FC<MaterialsCatalogProps> = ({
               </div>
 
               <div>
-                <label className="text-[11px] text-[#8A94A6] block mb-1">Descripción del Concepto</label>
+                <label className="text-[11px] text-[#586274] block mb-1">Descripción del Concepto</label>
                 <textarea
                   rows={3}
                   value={formData.descripcion || ''}
                   onChange={(e) => setFormData({ ...formData, descripcion: e.target.value })}
                   placeholder="Ej. Varilla corrugada 1/2 grado 42 o Cuadrilla albañil..."
-                  className="w-full bg-[#1A202C] border border-[#252D3D] focus:border-[#D4AF37] rounded-lg p-3 text-xs text-white focus:outline-none resize-none"
+                  className="w-full bg-[#F8F9FA] border border-[#C8CDD5] focus:border-[#D4AF37] rounded-lg p-3 text-xs text-[#111622] placeholder-[#8E99A8] focus:outline-none resize-none"
                   required
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-[11px] text-[#8A94A6] block mb-1">Unidad de Medida</label>
+                  <label className="text-[11px] text-[#586274] block mb-1">Unidad de Medida</label>
                   <input
                     type="text"
                     value={formData.unidad || ''}
                     onChange={(e) => setFormData({ ...formData, unidad: e.target.value })}
                     placeholder="m2, ml, m3, kg, jor..."
-                    className="w-full bg-[#1A202C] border border-[#252D3D] focus:border-[#D4AF37] rounded-lg px-3 py-2 text-xs font-mono text-white focus:outline-none"
+                    className="w-full bg-[#F8F9FA] border border-[#C8CDD5] focus:border-[#D4AF37] rounded-lg px-3 py-2 text-xs font-mono text-[#111622] focus:outline-none"
                     required
                   />
                 </div>
                 <div>
-                  <label className="text-[11px] text-[#8A94A6] block mb-1">Precio Unitario ($)</label>
+                  <label className="text-[11px] text-[#586274] block mb-1">Precio Unitario ($)</label>
                   <NumericInput
                     value={Number(formData.precioUnitario || 0)}
                     onChange={(val) => setFormData({ ...formData, precioUnitario: val })}
-                    className="w-full bg-[#1A202C] border border-[#252D3D] focus:border-[#D4AF37] rounded-lg px-3 py-2 text-xs font-mono text-[#D4AF37] focus:outline-none font-bold"
+                    className="w-full bg-[#F8F9FA] border border-[#C8CDD5] focus:border-[#D4AF37] rounded-lg px-3 py-2 text-xs font-mono text-[#AA8820] focus:outline-none font-bold"
                   />
                 </div>
               </div>
 
-              <div className="pt-4 flex items-center justify-end gap-2 border-t border-[#252D3D]">
+              <div className="pt-4 flex items-center justify-end gap-2 border-t border-[#E2E6EB]">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 rounded-lg text-xs text-[#8A94A6] hover:bg-[#1A202C] transition-colors"
+                  className="px-4 py-2 rounded-lg text-xs text-[#586274] hover:bg-[#EEF1F5] transition-colors cursor-pointer"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-lg bg-gradient-to-r from-[#D4AF37] to-[#AA8820] text-black font-semibold text-xs shadow-md shadow-[#D4AF37]/20 active:scale-95 transition-all"
+                  className="px-5 py-2 rounded-lg bg-gradient-to-r from-[#D4AF37] to-[#AA8820] text-[#111622] font-semibold text-xs shadow-md shadow-[#D4AF37]/20 active:scale-95 transition-all cursor-pointer"
                 >
                   Guardar Insumo
                 </button>

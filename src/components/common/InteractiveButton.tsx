@@ -54,11 +54,11 @@ export const InteractiveButton: React.FC<InteractiveButtonProps> = ({
 
   // Variantes de estilo de diseño
   const variantStyles = {
-    gold: 'bg-gradient-to-r from-[#D4AF37] via-[#F3C769] to-[#AA8820] text-black font-bold shadow-lg shadow-[#D4AF37]/25 hover:shadow-[#D4AF37]/45 hover:brightness-110 border border-[#FFF5C0]/40',
-    glass: 'bg-[#141822]/90 hover:bg-[#1C2333] text-white border border-[#252D3D] hover:border-[#D4AF37]/50 shadow-md backdrop-blur-md',
-    outline: 'bg-transparent text-[#D4AF37] border border-[#D4AF37]/60 hover:bg-[#D4AF37]/10 hover:border-[#D4AF37] shadow-sm',
-    ghost: 'bg-transparent text-[#8A94A6] hover:text-white hover:bg-[#1A202C]',
-    danger: 'bg-red-500/20 hover:bg-red-500/30 text-red-300 border border-red-500/40 hover:border-red-500'
+    gold: 'bg-gradient-to-r from-[#D4AF37] via-[#E2BF48] to-[#AA8820] text-[#111622] font-bold shadow-md shadow-[#D4AF37]/30 hover:shadow-lg hover:shadow-[#D4AF37]/45 hover:brightness-105 border border-[#FFF0A0]/60',
+    glass: 'bg-white/90 hover:bg-white text-[#111622] border border-[#B4B7BC] hover:border-[#D4AF37] shadow-sm backdrop-blur-md font-semibold',
+    outline: 'bg-transparent text-[#9E7A18] border border-[#D4AF37] hover:bg-[#D4AF37]/10 hover:border-[#AA8820] shadow-sm font-semibold',
+    ghost: 'bg-transparent text-[#586274] hover:text-[#111622] hover:bg-[#DDE1E6]',
+    danger: 'bg-red-500/10 hover:bg-red-500/20 text-red-700 border border-red-300 hover:border-red-400 font-medium'
   };
 
   const sizeStyles = {

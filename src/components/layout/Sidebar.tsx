@@ -65,20 +65,21 @@ export const Sidebar: React.FC<SidebarProps> = ({
   ];
 
   return (
-    <aside className="w-64 bg-[#0E121A]/95 backdrop-blur-xl border-r border-[#252D3D] flex flex-col justify-between select-none shrink-0 no-print z-20 relative">
+    <aside className="w-64 bg-[#DEE2E7]/95 backdrop-blur-xl border-r border-[#C5CAD2] flex flex-col justify-between select-none shrink-0 no-print z-20 relative shadow-sm">
       {/* SUTIL RAYO DE LUZ VERTICAL */}
-      <div className="absolute top-0 right-0 w-[1px] h-full bg-gradient-to-b from-[#D4AF37]/30 via-[#38BDF8]/20 to-transparent pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[1px] h-full bg-gradient-to-b from-[#D4AF37]/35 via-[#B4B7BC]/40 to-transparent pointer-events-none" />
 
       {/* SECCIÓN SUPERIOR: BRANDING CON TILT 3D Y NAVEGACIÓN */}
       <div className="flex-1 overflow-y-auto overflow-x-hidden">
         {/* BRANDING OFICIAL CONOBRAS CON EFECTO HOLOGRÁFICO */}
-        <div className="p-4 border-b border-[#252D3D] bg-gradient-to-b from-[#151A24] to-[#0E121A] relative overflow-hidden">
+        <div className="p-4 border-b border-[#C5CAD2] bg-gradient-to-b from-[#E5E9EE] to-[#DDE1E7] relative overflow-hidden">
           {/* Shimmer sweep en el header de marca */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#D4AF37]/5 to-transparent pointer-events-none animate-shimmer-sweep" />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none animate-shimmer-sweep" />
 
           <TiltCard maxTilt={8} lift={true} className="w-full">
-            <div className="flex flex-col items-center justify-center text-center p-2 rounded-xl bg-[#12161F]/60 border border-[#252D3D]/50 hover:border-[#D4AF37]/40 transition-colors">
-              {/* Contenedor del Logo Conobras con Glow */}
+            {/* Contenedor tipo Bezel Ejecutivo de Lujo para preservar el Logo Conobras con máximo contraste y color original */}
+            <div className="flex flex-col items-center justify-center text-center p-3 rounded-xl bg-[#111622] border border-[#D4AF37]/50 hover:border-[#D4AF37] shadow-lg transition-colors">
+              {/* Contenedor del Logo Conobras con Glow Dorado Original */}
               <div className="relative mb-2 flex items-center justify-center cursor-pointer">
                 <div className="absolute inset-0 bg-[#D4AF37]/25 blur-xl rounded-full scale-110 pointer-events-none animate-pulse-slow" />
 
@@ -104,11 +105,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 </span>
               </div>
 
-              <div className="text-[9px] text-[#8A94A6] tracking-wider uppercase font-semibold flex items-center gap-1 mt-1">
+              <div className="text-[9px] text-[#A0AEC0] tracking-wider uppercase font-semibold flex items-center gap-1 mt-1">
                 <span>Construcción</span>
                 <span className="text-[#D4AF37] font-bold">•</span>
                 <span>Arquitectura</span>
-                <span className="h-1.5 w-1.5 rounded-full bg-[#48BB78] ml-0.5 inline-block shadow-[0_0_6px_#48BB78]" />
+                <span className="h-1.5 w-1.5 rounded-full bg-[#16A34A] ml-0.5 inline-block shadow-[0_0_6px_#16A34A]" />
               </div>
             </div>
           </TiltCard>
@@ -116,9 +117,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
         {/* NAVEGACIÓN PRINCIPAL */}
         <nav className="p-3 space-y-1.5 mt-2">
-          <div className="px-3 py-1 text-[10px] uppercase font-bold tracking-widest text-[#8A94A6] flex items-center justify-between">
+          <div className="px-3 py-1 text-[10px] uppercase font-bold tracking-widest text-[#586274] flex items-center justify-between">
             <span>Módulos de Sistema</span>
-            <span className="text-[9px] text-[#D4AF37] font-mono">v1.2</span>
+            <span className="text-[9px] text-[#9E7A18] font-mono font-bold">v1.2</span>
           </div>
 
           {navItems.map((item) => {
@@ -131,8 +132,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 className={`
                   w-full relative flex items-center justify-between px-3 py-2.5 rounded-xl transition-all duration-200 text-left cursor-pointer group
                   ${isActive
-                    ? 'bg-gradient-to-r from-[#1C2333] to-[#141923] text-white border border-[#D4AF37]/50 shadow-md gold-glow-sm translate-x-1'
-                    : 'text-[#8A94A6] hover:text-[#F3F5F8] hover:bg-[#141822] hover:translate-x-0.5 border border-transparent'
+                    ? 'bg-white text-[#111622] border border-[#B4B7BC] shadow-sm gold-glow-sm translate-x-1 font-semibold'
+                    : 'text-[#586274] hover:text-[#111622] hover:bg-white/70 hover:translate-x-0.5 border border-transparent'
                   }
                 `}
               >
@@ -142,22 +143,22 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 )}
 
                 <div className="flex items-center gap-3">
-                  <div className={`p-1.5 rounded-lg transition-transform duration-200 group-hover:scale-110 ${isActive ? 'bg-[#D4AF37]/20 text-[#D4AF37] shadow-sm' : 'text-[#8A94A6]'
+                  <div className={`p-1.5 rounded-lg transition-transform duration-200 group-hover:scale-110 ${isActive ? 'bg-[#D4AF37]/20 text-[#AA8820] shadow-sm' : 'text-[#586274]'
                     }`}>
                     <Icon size={17} />
                   </div>
                   <div>
-                    <div className={`text-xs font-semibold ${isActive ? 'text-white' : 'text-[#F3F5F8]'}`}>
+                    <div className={`text-xs font-semibold ${isActive ? 'text-[#111622]' : 'text-[#2D3748]'}`}>
                       {item.label}
                     </div>
-                    <div className="text-[10px] text-[#8A94A6] leading-tight">
+                    <div className="text-[10px] text-[#586274] leading-tight">
                       {item.description}
                     </div>
                   </div>
                 </div>
 
                 {item.badge !== null && (
-                  <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full font-bold transition-all ${isActive ? 'bg-[#D4AF37] text-black shadow-sm' : 'bg-[#1A202C] text-[#8A94A6]'
+                  <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full font-bold transition-all ${isActive ? 'bg-[#D4AF37] text-black shadow-sm' : 'bg-[#E2E6EB] text-[#586274] border border-[#C5CAD2]'
                     }`}>
                     {item.badge}
                   </span>
@@ -174,24 +175,24 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       {/* FOOTER LOCAL DESKTOP STATUS CON RADAR DE ESTADO */}
-      <div className="p-3.5 border-t border-[#252D3D] bg-[#0A0D12]">
-        <div className="p-2 rounded-xl bg-[#12161F]/80 border border-[#252D3D]/60 space-y-1.5">
-          <div className="flex items-center justify-between text-[11px] text-[#8A94A6]">
+      <div className="p-3.5 border-t border-[#C5CAD2] bg-[#D6D9DE]">
+        <div className="p-2.5 rounded-xl bg-white/90 border border-[#C5CAD2] shadow-sm space-y-1.5">
+          <div className="flex items-center justify-between text-[11px] text-[#586274]">
             <div className="flex items-center gap-2">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#48BB78] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#48BB78]"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#16A34A] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#16A34A]"></span>
               </span>
-              <span className="text-[10px] font-mono font-medium text-white/90">SQLite Local Engine</span>
+              <span className="text-[10px] font-mono font-bold text-[#111622]">SQLite Local Engine</span>
             </div>
-            <span className="text-[9px] text-[#D4AF37] font-mono font-bold px-1.5 py-0.5 rounded bg-[#D4AF37]/15 border border-[#D4AF37]/35">
+            <span className="text-[9px] text-[#9E7A18] font-mono font-bold px-1.5 py-0.5 rounded bg-[#D4AF37]/15 border border-[#D4AF37]/35">
               PRO
             </span>
           </div>
 
-          <div className="text-[9px] text-[#8A94A6] flex items-center justify-between font-mono pt-1 border-t border-[#252D3D]/40">
+          <div className="text-[9px] text-[#586274] flex items-center justify-between font-mono pt-1 border-t border-[#E2E6EB]">
             <span>MODO OFFLINE</span>
-            <span className="text-[#38BDF8]">CAD / 3D ACTIVO</span>
+            <span className="text-[#0284C7] font-semibold">CAD / 3D ACTIVO</span>
           </div>
         </div>
       </div>

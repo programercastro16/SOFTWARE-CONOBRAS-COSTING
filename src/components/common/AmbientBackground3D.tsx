@@ -201,17 +201,17 @@ export const AmbientBackground3D: React.FC = () => {
         z: Math.random() * 900 + 100,
         size: Math.random() * 2 + 0.8,
         alpha: Math.random() * 0.4 + 0.2,
-        color: Math.random() > 0.55 ? '#D4AF37' : '#38BDF8'
+        color: Math.random() > 0.55 ? '#AA8820' : '#64748B'
       });
     }
 
     // 2. OBJETOS 3D VOLANDO EN EL ESPACIO ARQUITECTÓNICO
     const types: ShapeType[] = ['cube', 'octahedron', 'tetrahedron', 'prism', 'icosahedron'];
     const colors = [
-      { wire: '#D4AF37', fill: 'rgba(212, 175, 55, 0.04)' }, // Oro Conobras
-      { wire: '#38BDF8', fill: 'rgba(56, 189, 248, 0.04)' }, // Cian Arquitectura
-      { wire: '#F3C769', fill: 'rgba(243, 199, 105, 0.03)' }, // Ámbar
-      { wire: '#A78BFA', fill: 'rgba(167, 139, 250, 0.03)' }  // Titanio
+      { wire: '#B89328', fill: 'rgba(212, 175, 55, 0.08)' }, // Oro Conobras
+      { wire: '#64748B', fill: 'rgba(100, 116, 139, 0.06)' }, // Slate Titanio
+      { wire: '#D4AF37', fill: 'rgba(212, 175, 55, 0.06)' }, // Ámbar Oro
+      { wire: '#8B98A8', fill: 'rgba(139, 152, 168, 0.06)' }  // Gris Perla Profundo
     ];
 
     const objects: Floating3DObject[] = [];
@@ -403,7 +403,7 @@ export const AmbientBackground3D: React.FC = () => {
         });
 
         // C. Nodos / Vértices brillantes con halos de luz
-        ctx.fillStyle = '#FFFFFF';
+        ctx.fillStyle = '#475569';
         ctx.globalAlpha = nodeAlpha;
         projectedVertices.forEach((p) => {
           const nodeRadius = Math.max(1.2, 2.8 * depthFactor);
@@ -430,13 +430,13 @@ export const AmbientBackground3D: React.FC = () => {
     <div className="pointer-events-none fixed inset-0 overflow-hidden z-0 select-none">
       {/* AURORA GLOW AMBIENTAL: Nebulosa de fondo dorado y cian */}
       <div 
-        className="absolute -top-[25%] -left-[15%] w-[65vw] h-[65vw] rounded-full bg-[#D4AF37]/5 blur-[140px] animate-pulse-slow pointer-events-none"
+        className="absolute -top-[25%] -left-[15%] w-[65vw] h-[65vw] rounded-full bg-[#D4AF37]/8 blur-[140px] animate-pulse-slow pointer-events-none"
       />
       <div 
-        className="absolute top-[35%] -right-[20%] w-[60vw] h-[60vw] rounded-full bg-[#38BDF8]/4 blur-[150px] pointer-events-none"
+        className="absolute top-[35%] -right-[20%] w-[60vw] h-[60vw] rounded-full bg-[#B4B7BC]/30 blur-[150px] pointer-events-none"
       />
       <div 
-        className="absolute -bottom-[20%] left-[25%] w-[70vw] h-[70vw] rounded-full bg-[#D4AF37]/4 blur-[160px] animate-pulse-slow pointer-events-none"
+        className="absolute -bottom-[20%] left-[25%] w-[70vw] h-[70vw] rounded-full bg-[#D4AF37]/6 blur-[160px] animate-pulse-slow pointer-events-none"
       />
 
       {/* LIENZO 3D DEL ESPACIO CON OBJETOS GEOMÉTRICOS VOLANDO */}

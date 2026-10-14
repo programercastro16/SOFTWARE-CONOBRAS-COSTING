@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-[#0A0D12] text-[#F3F5F8] antialiased selection:bg-[#D4AF37]/30 selection:text-white font-sans;
+    @apply bg-[#D6D9DE] text-[#111622] antialiased selection:bg-[#D4AF37]/30 selection:text-[#111622] font-sans;
   }
 }
 
@@ -15,11 +15,11 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #0A0D12;
+  background: #D2D6DC;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #252D3D;
+  background: #B4B7BC;
   border-radius: 3px;
 }
 
@@ -236,25 +236,27 @@
 
 /* Glassmorphism Surface Styles */
 .glass-panel {
-  background: rgba(14, 18, 26, 0.85);
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(37, 45, 61, 0.7);
+  border: 1px solid rgba(180, 183, 188, 0.65);
+  box-shadow: 0 4px 20px -2px rgba(21, 27, 38, 0.05);
 }
 
 .glass-panel-gold {
-  background: rgba(20, 25, 36, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(212, 175, 55, 0.35);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  box-shadow: 0 4px 24px -4px rgba(212, 175, 55, 0.18);
 }
 
 /* Hologram grid pattern */
 .bg-blueprint-grid {
   background-size: 40px 40px;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
 }
 
 /* Print Styles for PDF / Paper Generation */

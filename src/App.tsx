@@ -65,17 +65,17 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
   render() {
     if (this.state.hasError) {
       return (
-        <div className="flex flex-col items-center justify-center p-8 m-6 rounded-2xl bg-[#12161F] border border-amber-500/30 text-center shadow-2xl">
+        <div className="flex flex-col items-center justify-center p-8 m-6 rounded-2xl bg-white border border-amber-500/30 text-center shadow-2xl">
           <h3 className="text-sm font-bold text-[#D4AF37] uppercase tracking-wider mb-2">
             Aviso de Renderizado
           </h3>
-          <p className="text-xs text-[#8A94A6] mb-4 max-w-md">
+          <p className="text-xs text-[#586274] mb-4 max-w-md">
             {this.state.error?.message || 'Se produjo un error al desplegar este módulo.'}
           </p>
           <button
             type="button"
             onClick={() => this.setState({ hasError: false, error: null })}
-            className="px-4 py-2 rounded-lg bg-gradient-to-r from-[#D4AF37] to-[#AA8820] text-black font-semibold text-xs transition-all active:scale-95 cursor-pointer"
+            className="px-4 py-2 rounded-lg bg-gradient-to-r from-[#D4AF37] to-[#AA8820] text-black font-semibold text-xs transition-all active:scale-95 cursor-pointer shadow-md"
           >
             Reintentar y Recargar Módulo
           </button>
@@ -153,7 +153,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="relative flex h-screen w-screen bg-[#0A0D12] text-[#F3F5F8] overflow-hidden select-none">
+    <div className="relative flex h-screen w-screen bg-[#D6D9DE] text-[#111622] overflow-hidden select-none font-sans">
       {/* FONDO DINÁMICO 3D CON PARTÍCULAS Y OBJETOS VOLANDO EN EL ESPACIO */}
       <AmbientBackground3D />
 
@@ -173,7 +173,7 @@ export const App: React.FC = () => {
         />
 
         {/* NAVEGACIÓN TABS SUPERIOR */}
-        <div className="px-6 lg:px-8 bg-[#0A0D12]/60 backdrop-blur-sm">
+        <div className="px-6 lg:px-8 bg-[#D6D9DE]/70 backdrop-blur-md border-b border-[#C5CAD2]/60">
           <NavigationTabs
             activeTab={activeTab}
             setActiveTab={setActiveTab}

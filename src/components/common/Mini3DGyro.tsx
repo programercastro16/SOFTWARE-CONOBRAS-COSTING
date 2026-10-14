@@ -145,7 +145,7 @@ export const Mini3DGyro: React.FC<Mini3DGyroProps> = ({
 
   return (
     <div
-      className={`relative flex items-center gap-2.5 p-2 rounded-xl bg-[#0A0D12]/90 border border-[#252D3D] select-none group ${className}`}
+      className={`relative flex items-center gap-2.5 p-2 rounded-xl bg-white/90 border border-[#C5CAD2] shadow-sm select-none group ${className}`}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
@@ -157,26 +157,26 @@ export const Mini3DGyro: React.FC<Mini3DGyroProps> = ({
           ref={canvasRef}
           width={size}
           height={size}
-          className="rounded-full shadow-inner bg-[#12161F]"
+          className="rounded-full shadow-inner bg-[#E5E9EE]"
         />
-        <div className="absolute inset-0 rounded-full border border-[#D4AF37]/20 pointer-events-none group-hover:border-[#D4AF37]/50 transition-colors" />
+        <div className="absolute inset-0 rounded-full border border-[#D4AF37]/30 pointer-events-none group-hover:border-[#D4AF37]/60 transition-colors" />
       </div>
 
       <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between">
-          <span className="text-[10px] font-mono font-bold tracking-widest text-[#D4AF37] uppercase flex items-center gap-1">
+          <span className="text-[10px] font-mono font-bold tracking-widest text-[#9E7A18] uppercase flex items-center gap-1">
             <Compass size={11} className="text-[#D4AF37] animate-spin-slow-3d" />
             {label}
           </span>
           <button
             onClick={resetView}
             title="Centrar Norte"
-            className="text-[#8A94A6] hover:text-[#D4AF37] p-0.5 rounded transition-colors"
+            className="text-[#586274] hover:text-[#D4AF37] p-0.5 rounded transition-colors"
           >
             <RotateCw size={10} />
           </button>
         </div>
-        <div className="flex items-center gap-2 font-mono text-[9px] text-[#8A94A6] mt-0.5">
+        <div className="flex items-center gap-2 font-mono text-[9px] text-[#586274] mt-0.5">
           <span>Y: {Math.round(angles.yaw)}°</span>
           <span>•</span>
           <span>P: {Math.round(angles.pitch)}°</span>

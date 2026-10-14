@@ -282,15 +282,15 @@ export const ProposalPdfModal: React.FC<ProposalPdfModalProps> = ({
         }
       `}</style>
 
-      <div className="bg-[#0E121A] border border-[#252D3D] rounded-2xl w-full max-w-5xl max-h-[94vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in duration-200">
+      <div className="bg-white border border-[#C5CAD2] rounded-2xl w-full max-w-5xl max-h-[94vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in duration-200">
 
         {/* HEADER DE CONTROL SUPERIOR */}
-        <div className="flex items-center justify-between px-6 py-3.5 border-b border-[#252D3D] bg-[#12161F] no-print shrink-0">
+        <div className="flex items-center justify-between px-6 py-3.5 border-b border-[#C5CAD2] bg-[#EEF1F5] no-print shrink-0">
           <div className="flex items-center gap-3">
-            <span className="font-mono text-xs text-[#D4AF37] font-bold bg-[#1A202C] px-2.5 py-1 rounded border border-[#D4AF37]/30">
+            <span className="font-mono text-xs text-[#9E7A18] font-bold bg-[#D4AF37]/15 px-2.5 py-1 rounded border border-[#D4AF37]/40">
               {safeQuote.codigo}
             </span>
-            <span className="text-sm font-semibold text-white truncate max-w-md">
+            <span className="text-sm font-semibold text-[#111622] truncate max-w-md">
               Vista Previa de Propuesta Institucional ({pages.length} {pages.length === 1 ? 'Página' : 'Páginas'})
             </span>
           </div>
@@ -299,7 +299,7 @@ export const ProposalPdfModal: React.FC<ProposalPdfModalProps> = ({
             <button
               type="button"
               onClick={handleShareWhatsApp}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#25D366]/15 hover:bg-[#25D366]/25 border border-[#25D366]/30 text-[#25D366] text-xs font-medium transition-all cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#25D366]/15 hover:bg-[#25D366]/25 border border-[#25D366]/30 text-[#128C7E] text-xs font-semibold transition-all cursor-pointer"
               title="Compartir resumen por WhatsApp"
             >
               <Send size={13} />
@@ -309,7 +309,7 @@ export const ProposalPdfModal: React.FC<ProposalPdfModalProps> = ({
             <button
               type="button"
               onClick={handlePrint}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#1A202C] hover:bg-[#252D3D] border border-[#252D3D] text-xs text-[#8A94A6] hover:text-white transition-all cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-[#E5E9EE] border border-[#C5CAD2] text-xs text-[#586274] hover:text-[#111622] shadow-sm transition-all cursor-pointer"
             >
               <Printer size={13} />
               <span>Imprimir</span>
@@ -328,7 +328,7 @@ export const ProposalPdfModal: React.FC<ProposalPdfModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="p-1.5 text-[#8A94A6] hover:text-white hover:bg-[#1A202C] rounded-lg ml-2 cursor-pointer"
+              className="p-1.5 text-[#586274] hover:text-[#111622] hover:bg-[#E2E6EC] rounded-lg ml-2 cursor-pointer transition-colors"
             >
               <X size={18} />
             </button>
@@ -336,13 +336,13 @@ export const ProposalPdfModal: React.FC<ProposalPdfModalProps> = ({
         </div>
 
         {/* CONTENEDOR TIPO VISOR DE HOJAS A4 */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-8 flex flex-col items-center gap-8" style={{ backgroundColor: '#1A202C' }}>
+        <div className="flex-1 overflow-y-auto p-4 sm:p-8 flex flex-col items-center gap-8" style={{ backgroundColor: '#C8CDD5' }}>
           <div ref={printRef} className="flex flex-col items-center gap-8 w-full">
             {pages.map((page) => (
               <div key={`page-wrapper-${page.pageNumber}`} className="flex flex-col items-center w-full">
                 {/* Indicador de página en visor */}
-                <div className="flex items-center gap-2 mb-2 no-print text-xs font-mono text-[#8A94A6]">
-                  <FileText size={12} className="text-[#D4AF37]" />
+                <div className="flex items-center gap-2 mb-2 no-print text-xs font-mono text-[#475569] font-medium">
+                  <FileText size={12} className="text-[#9E7A18]" />
                   <span>Hoja {page.pageNumber} de {pages.length}</span>
                 </div>
 

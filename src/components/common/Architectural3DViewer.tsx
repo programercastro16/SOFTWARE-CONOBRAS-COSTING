@@ -628,26 +628,26 @@ export const Architectural3DViewer: React.FC<Architectural3DViewerProps> = ({
   return (
     <div 
       ref={containerRef}
-      className={`relative rounded-2xl overflow-hidden border border-[#D4AF37]/35 bg-gradient-to-b from-[#121620] via-[#0D1017] to-[#080B10] shadow-2xl flex flex-col ${className}`}
+      className={`relative rounded-2xl overflow-hidden border border-[#D4AF37]/40 bg-gradient-to-b from-[#F6F8FA] via-[#EEF1F5] to-[#E2E5EA] shadow-xl flex flex-col ${className}`}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
     >
       {/* HUD HEADER BAR */}
-      <div className="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 bg-[#0E121A]/95 backdrop-blur-md border-b border-[#252D3D] z-10 select-none">
+      <div className="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 bg-white/95 backdrop-blur-md border-b border-[#C5CAD2] z-10 select-none shadow-sm">
         <div className="flex items-center gap-2.5">
-          <div className="p-1.5 rounded-lg bg-[#D4AF37]/20 text-[#D4AF37] shadow-sm animate-pulse-slow">
+          <div className="p-1.5 rounded-lg bg-[#D4AF37]/20 text-[#AA8820] shadow-sm animate-pulse-slow">
             <Box size={16} />
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="text-xs font-bold text-white tracking-wide">
+              <span className="text-xs font-bold text-[#111622] tracking-wide">
                 VISOR BIM 3D DE OBRA
               </span>
-              <span className="text-[9px] px-1.5 py-0.2 rounded bg-[#D4AF37]/20 text-[#D4AF37] font-mono border border-[#D4AF37]/40 font-semibold">
+              <span className="text-[9px] px-1.5 py-0.2 rounded bg-[#D4AF37]/20 text-[#AA8820] font-mono border border-[#D4AF37]/40 font-bold">
                 CONOBRAS ENGINE
               </span>
             </div>
-            <div className="text-[10px] text-[#8A94A6] font-mono">
+            <div className="text-[10px] text-[#586274] font-mono">
               Renderizado Wireframe Isométrico Interactivo
             </div>
           </div>
@@ -655,7 +655,7 @@ export const Architectural3DViewer: React.FC<Architectural3DViewerProps> = ({
 
         {/* SELECTOR DE MODELO Y CONTROLES */}
         <div className="flex items-center gap-1.5">
-          <div className="flex items-center bg-[#141822] p-0.5 rounded-lg border border-[#252D3D]">
+          <div className="flex items-center bg-[#EEF1F5] p-0.5 rounded-lg border border-[#C5CAD2]">
             {models.map(m => (
               <button
                 key={m.id}
@@ -663,7 +663,7 @@ export const Architectural3DViewer: React.FC<Architectural3DViewerProps> = ({
                 className={`px-2 py-1 rounded text-[10px] font-semibold transition-all cursor-pointer ${
                   modelType === m.id
                     ? 'bg-[#D4AF37] text-black shadow-sm font-bold'
-                    : 'text-[#8A94A6] hover:text-white'
+                    : 'text-[#586274] hover:text-[#111622]'
                 }`}
               >
                 {m.label}
@@ -675,8 +675,8 @@ export const Architectural3DViewer: React.FC<Architectural3DViewerProps> = ({
             onClick={() => setScanActive(!scanActive)}
             className={`p-1.5 rounded-lg border transition-all cursor-pointer ${
               scanActive
-                ? 'bg-[#38BDF8]/20 border-[#38BDF8] text-[#38BDF8]'
-                : 'bg-[#141822] border-[#252D3D] text-[#8A94A6] hover:text-white'
+                ? 'bg-[#0284C7]/20 border-[#0284C7] text-[#0369A1]'
+                : 'bg-white border-[#C5CAD2] text-[#586274] hover:text-[#111622]'
             }`}
             title={scanActive ? 'Desactivar escáner láser' : 'Activar escáner láser'}
           >
@@ -687,8 +687,8 @@ export const Architectural3DViewer: React.FC<Architectural3DViewerProps> = ({
             onClick={() => setAutoRotate(!autoRotate)}
             className={`p-1.5 rounded-lg border transition-all cursor-pointer ${
               autoRotate
-                ? 'bg-[#D4AF37]/20 border-[#D4AF37] text-[#D4AF37]'
-                : 'bg-[#141822] border-[#252D3D] text-[#8A94A6] hover:text-white'
+                ? 'bg-[#D4AF37]/20 border-[#D4AF37] text-[#AA8820]'
+                : 'bg-white border-[#C5CAD2] text-[#586274] hover:text-[#111622]'
             }`}
             title={autoRotate ? 'Pausar auto-rotación' : 'Activar auto-rotación'}
           >
@@ -697,7 +697,7 @@ export const Architectural3DViewer: React.FC<Architectural3DViewerProps> = ({
 
           <button
             onClick={resetCamera}
-            className="p-1.5 rounded-lg bg-[#141822] border border-[#252D3D] text-[#8A94A6] hover:text-white transition-all cursor-pointer"
+            className="p-1.5 rounded-lg bg-white border border-[#C5CAD2] text-[#586274] hover:text-[#111622] transition-all cursor-pointer"
             title="Resetear Cámara"
           >
             <RefreshCw size={14} />
@@ -706,7 +706,7 @@ export const Architectural3DViewer: React.FC<Architectural3DViewerProps> = ({
           {onClose && (
             <button
               onClick={onClose}
-              className="px-2 py-1 rounded-lg bg-[#141822] hover:bg-red-500/20 text-[#8A94A6] hover:text-red-400 border border-[#252D3D] text-xs transition-all ml-1 cursor-pointer font-bold"
+              className="px-2 py-1 rounded-lg bg-white hover:bg-red-500/20 text-[#586274] hover:text-red-600 border border-[#C5CAD2] text-xs transition-all ml-1 cursor-pointer font-bold"
             >
               ✕
             </button>
@@ -727,44 +727,44 @@ export const Architectural3DViewer: React.FC<Architectural3DViewerProps> = ({
         />
 
         {/* HUD TELEMETRY OVERLAY */}
-        <div className="absolute top-3 left-3 pointer-events-none flex flex-col gap-1 font-mono text-[10px] text-[#8A94A6]/80 bg-[#0A0D12]/75 backdrop-blur-sm p-2 rounded-lg border border-[#252D3D]/60 shadow-md">
+        <div className="absolute top-3 left-3 pointer-events-none flex flex-col gap-1 font-mono text-[10px] text-[#586274] bg-white/90 backdrop-blur-sm p-2 rounded-lg border border-[#C5CAD2] shadow-sm">
           <div className="flex items-center gap-2">
-            <span className="text-[#D4AF37] font-semibold">ROTACIÓN:</span>
+            <span className="text-[#9E7A18] font-bold">ROTACIÓN:</span>
             <span>X: {Math.round(rotation.x)}° | Y: {Math.round(rotation.y)}°</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-[#38BDF8] font-semibold">ZOOM:</span>
+            <span className="text-[#0284C7] font-bold">ZOOM:</span>
             <span>{Math.round(zoom)}%</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-[#48BB78] font-semibold">ELEMENTOS:</span>
+            <span className="text-[#16A34A] font-bold">ELEMENTOS:</span>
             <span>{stats.nodes} Nodos • {stats.edges} Elementos</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-white font-semibold">FPS:</span>
+            <span className="text-[#111622] font-bold">FPS:</span>
             <span>{stats.fps} fps</span>
           </div>
         </div>
 
         {/* INSTRUCCIONES RÁPIDAS */}
-        <div className="absolute bottom-3 right-3 pointer-events-none text-[9px] font-sans text-[#8A94A6]/70 bg-[#0A0D12]/70 px-2.5 py-1 rounded-md border border-[#252D3D]/50 flex items-center gap-2">
+        <div className="absolute bottom-3 right-3 pointer-events-none text-[9px] font-sans text-[#586274] bg-white/85 px-2.5 py-1 rounded-md border border-[#C5CAD2] flex items-center gap-2 shadow-sm">
           <span>Arrastra para rotar libre</span>
           <span>•</span>
           <span>Rueda de ratón para Zoom</span>
         </div>
 
         {/* BOTONES DE ZOOM */}
-        <div className="absolute bottom-3 left-16 flex items-center gap-1 bg-[#141822]/80 backdrop-blur-sm p-1 rounded-lg border border-[#252D3D]">
+        <div className="absolute bottom-3 left-16 flex items-center gap-1 bg-white/90 backdrop-blur-sm p-1 rounded-lg border border-[#C5CAD2] shadow-sm">
           <button
             onClick={() => setZoom(prev => Math.min(450, prev + 25))}
-            className="p-1 text-[#8A94A6] hover:text-white transition-colors cursor-pointer"
+            className="p-1 text-[#586274] hover:text-[#111622] transition-colors cursor-pointer"
             title="Acercar"
           >
             <ZoomIn size={13} />
           </button>
           <button
             onClick={() => setZoom(prev => Math.max(80, prev - 25))}
-            className="p-1 text-[#8A94A6] hover:text-white transition-colors cursor-pointer"
+            className="p-1 text-[#586274] hover:text-[#111622] transition-colors cursor-pointer"
             title="Alejar"
           >
             <ZoomOut size={13} />

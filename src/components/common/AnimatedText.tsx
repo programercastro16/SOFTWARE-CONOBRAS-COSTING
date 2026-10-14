@@ -11,13 +11,13 @@ interface AnimatedGradientTextProps {
 export const AnimatedGradientText: React.FC<AnimatedGradientTextProps> = ({
   children,
   className = '',
-  from = '#FFFFFF',
-  via = '#F3C769',
+  from = '#111622',
+  via = '#B89328',
   to = '#D4AF37'
 }) => {
   return (
     <span
-      className={`inline-block font-extrabold bg-gradient-to-r from-white via-[#F3C769] to-[#AA8820] bg-clip-text text-transparent animate-gradient-text tracking-wide ${className}`}
+      className={`inline-block font-extrabold bg-gradient-to-r from-[#111622] via-[#B89328] to-[#AA8820] bg-clip-text text-transparent animate-gradient-text tracking-wide ${className}`}
       style={{
         backgroundImage: `linear-gradient(90deg, ${from}, ${via}, ${to}, ${from})`
       }}
@@ -76,9 +76,9 @@ export const TypewriterHeadline: React.FC<TypewriterHeadlineProps> = ({
   }, [currentText, isDeleting, currentPhraseIndex, phrases, typingSpeed, pauseTime]);
 
   return (
-    <div className={`flex items-center gap-1.5 font-mono text-xs text-[#8A94A6] ${className}`}>
-      {prefix && <span className="text-[#D4AF37] font-semibold">{prefix}</span>}
-      <span className="text-white/90 font-medium">
+    <div className={`flex items-center gap-1.5 font-mono text-xs text-[#586274] ${className}`}>
+      {prefix && <span className="text-[#9E7A18] font-semibold">{prefix}</span>}
+      <span className="text-[#111622] font-semibold">
         {currentText}
       </span>
       <span className="inline-block w-1.5 h-3.5 bg-[#D4AF37] animate-pulse rounded-sm" />
@@ -100,9 +100,9 @@ export const ShimmerBadge: React.FC<ShimmerBadgeProps> = ({
   className = ''
 }) => {
   const colorMap = {
-    gold: 'bg-[#D4AF37]/10 text-[#D4AF37] border-[#D4AF37]/35 shadow-[#D4AF37]/20',
-    cyan: 'bg-[#38BDF8]/10 text-[#38BDF8] border-[#38BDF8]/35 shadow-[#38BDF8]/20',
-    emerald: 'bg-[#48BB78]/10 text-[#48BB78] border-[#48BB78]/35 shadow-[#48BB78]/20'
+    gold: 'bg-[#D4AF37]/15 text-[#9E7A18] border-[#D4AF37]/45 shadow-[#D4AF37]/10',
+    cyan: 'bg-[#0284C7]/15 text-[#0369A1] border-[#0284C7]/35 shadow-[#0284C7]/10',
+    emerald: 'bg-[#16A34A]/15 text-[#15803D] border-[#16A34A]/35 shadow-[#16A34A]/10'
   };
 
   return (
