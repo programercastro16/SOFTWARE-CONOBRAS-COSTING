@@ -25,7 +25,8 @@ import {
   Insumo, 
   InsumoCategoria, 
   ConfiguracionEmpresa,
-  EstadoCotizacion
+  EstadoCotizacion,
+  UNIDADES_VALIDAS
 } from '../../types';
 import { storageService } from '../../services/storageService';
 import { TiltCard } from '../common/TiltCard';
@@ -207,7 +208,7 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({
     const newItem: ItemPartida = {
       id: `item-${Date.now()}`,
       descripcion: '',
-      categoria: 'MATERIAL',
+      categoria: 'TODO_COSTO',
       unidad: 'm2',
       cantidad: 1,
       precioUnitario: 0
@@ -304,11 +305,11 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({
       {/* BARRA SUPERIOR: BRANDING, ESTADO Y ACCIONES PRINCIPALES */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 rounded-2xl bg-white border border-[#C5CAD2] shadow-sm">
         <div className="flex items-center gap-4">
-          <div className="h-16 w-24 rounded-xl bg-[#111622] border border-[#D4AF37]/50 p-2 flex items-center justify-center shadow-md shrink-0">
+          <div className="flex items-center justify-center shrink-0">
             <img 
-              src="./assets/conobras-logo.png" 
-              alt="Conobras" 
-              className="max-h-full max-w-full object-contain filter drop-shadow-[0_2px_10px_rgba(212,175,55,0.45)]"
+              src="./assets/conobras-icon.png" 
+              alt="conobras" 
+              className="h-14 w-auto max-w-[110px] object-contain filter drop-shadow-[0_2px_8px_rgba(250,202,20,0.35)] hover:scale-105 transition-transform"
               onError={(e) => {
                 (e.target as HTMLElement).style.display = 'none';
               }}
@@ -449,15 +450,30 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({
             <Calendar size={14} />
             <span>Condiciones de Emisión</span>
           </div>
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="text-[11px] text-[#586274] block mb-1">Folio Cotización</label>
-              <input 
-                type="text" 
-                value={quote.codigo || ''} 
-                onChange={(e) => updateQuote({ ...quote, codigo: e.target.value })}
-                className="w-full bg-[#F8F9FA] border border-[#C8CDD5] focus:border-[#D4AF37] rounded-lg px-3 py-2 text-xs font-mono text-[#9E7A18] font-bold focus:outline-none focus:ring-1 focus:ring-[#D4AF37]/40 select-text"
-              />
+          <div className="space-y-3">
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="text-[11px] text-[#586274] block mb-1">Folio Cotización</label>
+                <input 
+                  type="text" 
+                  value={quote.codigo || ''} 
+                  onChange={(e) => updateQuote({ ...quote, codigo: e.target.value })}
+                  className="w-full bg-[#F8F9FA] border border-[#C8CDD5] focus:border-[#D4AF37] rounded-lg px-3 py-2 text-xs font-mono text-[#9E7A18] font-bold focus:outline-none focus:ring-1 focus:ring-[#D4AF37]/40 select-text"
+                />
+              </div>
+              <div>
+                <label className="text-[11px] text-[#586274] block mb-1">Moneda</label>
+                <select 
+                  value={quote.moneda}
+                  onChange={(e) => updateQuote({ ...quote, moneda: e.target.value })}
+                  className="w-full bg-[#F8F9FA] border border-[#C8CDD5] focus:border-[#D4AF37] rounded-lg px-3 py-2 text-xs text-[#111622] focus:outline-none focus:ring-1 focus:ring-[#D4AF37]/40"
+                >
+                  <option value="$">$ (Pesos / Dólares)</option>
+                  <option value="USD $">USD $</option>
+                  <option value="€">EUR €</option>
+                  <option value="COP $">COP $</option>
+                </select>
+              </div>
             </div>
             <div>
               <label className="text-[11px] text-[#586274] block mb-1">Fecha Emisión</label>
@@ -467,26 +483,6 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({
                 onChange={(e) => updateQuote({ ...quote, fecha: e.target.value })}
                 className="w-full bg-[#F8F9FA] border border-[#C8CDD5] focus:border-[#D4AF37] rounded-lg px-3 py-2 text-xs text-[#111622] focus:outline-none focus:ring-1 focus:ring-[#D4AF37]/40 select-text"
               />
-            </div>
-            <div>
-              <label className="text-[11px] text-[#586274] block mb-1">Vigencia (Días)</label>
-              <NumericInput 
-                value={quote.validezDias}
-                onChange={(val) => updateQuote({ ...quote, validezDias: val })}
-                className="w-full bg-[#F8F9FA] border border-[#C8CDD5] focus:border-[#D4AF37] rounded-lg px-3 py-2 text-xs font-mono text-[#111622] focus:outline-none focus:ring-1 focus:ring-[#D4AF37]/40 select-text"
-              />
-            </div>
-            <div>
-              <label className="text-[11px] text-[#586274] block mb-1">Moneda</label>
-              <select 
-                value={quote.moneda}
-                onChange={(e) => updateQuote({ ...quote, moneda: e.target.value })}
-                className="w-full bg-[#F8F9FA] border border-[#C8CDD5] focus:border-[#D4AF37] rounded-lg px-3 py-2 text-xs text-[#111622] focus:outline-none focus:ring-1 focus:ring-[#D4AF37]/40"
-              >
-                <option value="$">$ (Pesos / Dólares)</option>
-                <option value="USD $">USD $</option>
-                <option value="€">EUR €</option>
-              </select>
             </div>
           </div>
         </div>
@@ -617,23 +613,26 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({
                         </td>
                         <td className="py-2.5 pr-2">
                           <select 
-                            value={item.categoria}
+                            value="TODO_COSTO"
                             onChange={(e) => handleUpdateItem(partida.id, item.id, 'categoria', e.target.value as InsumoCategoria)}
-                            className="w-full bg-[#F8F9FA] border border-[#C8CDD5] text-[11px] rounded px-2 py-1.5 text-[#586274] focus:outline-none focus:border-[#D4AF37]"
+                            className="w-full bg-[#F8F9FA] border border-[#C8CDD5] text-[11px] rounded px-2 py-1.5 text-[#111622] font-semibold focus:outline-none focus:border-[#D4AF37]"
                           >
-                            <option value="MATERIAL">Material</option>
-                            <option value="MANO_DE_OBRA">Mano de Obra</option>
-                            <option value="EQUIPO">Equipo</option>
-                            <option value="SUBCONTRATO">Subcontrato</option>
+                            <option value="TODO_COSTO">Todo costo</option>
                           </select>
                         </td>
                         <td className="py-2.5 pr-2 text-center">
-                          <input 
-                            type="text" 
-                            value={item.unidad}
+                          <select 
+                            value={item.unidad || 'm2'}
                             onChange={(e) => handleUpdateItem(partida.id, item.id, 'unidad', e.target.value)}
-                            className="w-14 bg-[#F8F9FA] border border-[#C8CDD5] focus:border-[#D4AF37] rounded px-2 py-1.5 text-center font-mono text-[11px] text-[#111622] focus:outline-none"
-                          />
+                            className="w-16 bg-[#F8F9FA] border border-[#C8CDD5] focus:border-[#D4AF37] rounded px-1.5 py-1.5 text-center font-mono text-[11px] text-[#111622] focus:outline-none cursor-pointer"
+                          >
+                            {!UNIDADES_VALIDAS.includes(item.unidad as any) && item.unidad && (
+                              <option value={item.unidad}>{item.unidad}</option>
+                            )}
+                            {UNIDADES_VALIDAS.map((u) => (
+                              <option key={u} value={u}>{u}</option>
+                            ))}
+                          </select>
                         </td>
                         <td className="py-2.5 pr-2 text-right">
                           <NumericInput 
@@ -825,7 +824,7 @@ export const QuoteBuilder: React.FC<QuoteBuilderProps> = ({
                     <span className="text-xs font-bold uppercase tracking-widest text-[#586274] block">
                       Inversión Total de la Obra
                     </span>
-                    <span className="text-[10px] text-[#9E7A18] font-bold">Presupuesto Integral Conobras</span>
+                    <span className="text-[10px] text-[#9E7A18] font-bold">Presupuesto Integral <span className="font-brand font-bold text-xs lowercase">conobras</span></span>
                   </div>
                   <AnimatedCounter 
                     value={calculos.totalFinal} 

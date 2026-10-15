@@ -1,4 +1,6 @@
-export type InsumoCategoria = 'MATERIAL' | 'MANO_DE_OBRA' | 'EQUIPO' | 'SUBCONTRATO';
+export type InsumoCategoria = 'TODO_COSTO' | 'MATERIAL' | 'MANO_DE_OBRA' | 'EQUIPO' | 'SUBCONTRATO';
+export const UNIDADES_VALIDAS = ['m2', 'm3', 'ml', 'kg', 'gl', 'vj', 'un'] as const;
+export type MedidaUnidad = typeof UNIDADES_VALIDAS[number];
 
 export interface Insumo {
   id: string;
@@ -80,6 +82,7 @@ export interface ConfiguracionEmpresa {
   nombreEmpresa: string;
   eslogan: string;
   arquitecto: string;
+  especialidad?: string;
   cedulaProfesional?: string;
   telefono: string;
   email: string;

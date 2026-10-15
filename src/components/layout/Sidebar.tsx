@@ -78,16 +78,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
           <TiltCard maxTilt={8} lift={true} className="w-full">
             {/* Contenedor tipo Bezel Ejecutivo de Lujo para preservar el Logo Conobras con máximo contraste y color original */}
-            <div className="flex flex-col items-center justify-center text-center p-3 rounded-xl bg-[#111622] border border-[#D4AF37]/50 hover:border-[#D4AF37] shadow-lg transition-colors">
-              {/* Contenedor del Logo Conobras con Glow Dorado Original */}
-              <div className="relative mb-2 flex items-center justify-center cursor-pointer">
-                <div className="absolute inset-0 bg-[#D4AF37]/25 blur-xl rounded-full scale-110 pointer-events-none animate-pulse-slow" />
+            <div className="flex flex-col items-center justify-center text-center p-3.5 rounded-xl bg-[#111622] border border-[#FACA14]/40 hover:border-[#FACA14] shadow-lg transition-colors">
+              {/* Contenedor del Logo Conobras con Glow Dorado Oficial */}
+              <div className="relative mb-2.5 flex items-center justify-center cursor-pointer">
+                <div className="absolute inset-0 bg-[#FACA14]/25 blur-xl rounded-full scale-125 pointer-events-none animate-pulse-slow" />
 
-                <div className="relative h-16 w-32 flex items-center justify-center p-1 transition-transform duration-300 group-hover:scale-105">
+                <div className="relative h-16 w-32 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
                   <img
-                    src="./assets/conobras-logo.png"
-                    alt="Conobras - Logo Oficial"
-                    className="max-h-full max-w-full object-contain filter drop-shadow-[0_4px_14px_rgba(212,175,55,0.45)]"
+                    src="./assets/conobras-icon.png"
+                    alt="conobras - logo oficial"
+                    className="h-full w-auto max-w-full object-contain filter drop-shadow-[0_4px_16px_rgba(250,202,20,0.6)]"
                     onError={(e) => {
                       (e.target as HTMLElement).style.display = 'none';
                     }}
@@ -95,19 +95,19 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 </div>
               </div>
 
-              {/* Tipografía de la marca */}
+              {/* Tipografía oficial de la marca en minúscula con caligrafía idéntica */}
               <div className="flex items-center gap-1.5 justify-center">
-                <span className="font-extrabold text-sm tracking-[0.22em] text-white uppercase font-sans">
-                  CONOBRAS
+                <span className="font-brand font-bold text-xl text-white lowercase tracking-normal leading-none select-none">
+                  conobras
                 </span>
-                <span className="text-[9px] px-1.5 py-0.2 rounded bg-[#D4AF37]/20 text-[#D4AF37] font-mono font-bold border border-[#D4AF37]/40 shadow-sm">
+                <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#FACA14]/20 text-[#FACA14] font-mono font-bold border border-[#FACA14]/40 shadow-sm">
                   QUOTE
                 </span>
               </div>
 
-              <div className="text-[9px] text-[#A0AEC0] tracking-wider uppercase font-semibold flex items-center gap-1 mt-1">
+              <div className="text-[9px] text-[#A0AEC0] tracking-wider uppercase font-semibold flex items-center gap-1 mt-1.5">
                 <span>Construcción</span>
-                <span className="text-[#D4AF37] font-bold">•</span>
+                <span className="text-[#FACA14] font-bold">•</span>
                 <span>Arquitectura</span>
                 <span className="h-1.5 w-1.5 rounded-full bg-[#16A34A] ml-0.5 inline-block shadow-[0_0_6px_#16A34A]" />
               </div>

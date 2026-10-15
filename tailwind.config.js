@@ -31,6 +31,8 @@ export default {
             light: '#F3C769',
             dark: '#AA8820',
           },
+          brandYellow: '#FACA14',
+          charcoal: '#444848',
           leaf: '#15803D',       // Architectural green accent
           muted: '#586274',      // Technical secondary slate
           text: '#111622',       // Crisp Obsidian Charcoal
@@ -39,6 +41,7 @@ export default {
       fontFamily: {
         sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+        brand: ['Outfit', 'sans-serif'],
       }
     },
   },

@@ -57,7 +57,7 @@ function createWindow() {
     minHeight: 700,
     backgroundColor: '#0A0D12',
     icon: iconPath,
-    title: 'Conobras Quote - Presupuestos y Costos Arquitectónicos',
+    title: 'conobras quote - Presupuestos y Costos Arquitectónicos',
     webPreferences: {
       preload: path.join(__dirname, 'preload.cjs'),
       nodeIntegration: false,

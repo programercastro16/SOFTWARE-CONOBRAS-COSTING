@@ -53,7 +53,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Headline Dinámico con Efecto Typewriter */}
         <div className="hidden md:block">
           <TypewriterHeadline 
-            prefix="CONOBRAS •"
+            prefix="conobras •"
             typingSpeed={40}
             pauseTime={2500}
           />

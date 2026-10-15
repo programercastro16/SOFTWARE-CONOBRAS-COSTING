@@ -188,6 +188,8 @@ export const MaterialsCatalog: React.FC<MaterialsCatalogProps> = ({
 
   const getCategoryBadge = (cat: InsumoCategoria) => {
     switch (cat) {
+      case 'TODO_COSTO':
+        return <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-amber-50 text-amber-800 border border-amber-300">Todo costo</span>;
       case 'MATERIAL':
         return <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-blue-50 text-blue-700 border border-blue-200">Material</span>;
       case 'MANO_DE_OBRA':
@@ -196,6 +198,8 @@ export const MaterialsCatalog: React.FC<MaterialsCatalogProps> = ({
         return <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-purple-50 text-purple-700 border border-purple-200">Equipo</span>;
       case 'SUBCONTRATO':
         return <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">Subcontrato</span>;
+      default:
+        return <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-gray-50 text-gray-700 border border-gray-200">Todo costo</span>;
     }
   };
 
@@ -211,7 +215,7 @@ export const MaterialsCatalog: React.FC<MaterialsCatalogProps> = ({
             </h2>
           </div>
           <p className="text-xs text-[#586274] mt-0.5">
-            Base de datos de precios unitarios Conobras. Haz clic sobre cualquier precio para editarlo en tiempo real.
+            Base de datos de precios unitarios <span className="font-brand font-bold lowercase text-xs">conobras</span>. Haz clic sobre cualquier precio para editarlo en tiempo real.
           </p>
         </div>
 

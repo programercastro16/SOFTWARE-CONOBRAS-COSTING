@@ -643,8 +643,8 @@ export const Architectural3DViewer: React.FC<Architectural3DViewerProps> = ({
               <span className="text-xs font-bold text-[#111622] tracking-wide">
                 VISOR BIM 3D DE OBRA
               </span>
-              <span className="text-[9px] px-1.5 py-0.2 rounded bg-[#D4AF37]/20 text-[#AA8820] font-mono border border-[#D4AF37]/40 font-bold">
-                CONOBRAS ENGINE
+              <span className="text-[9px] px-1.5 py-0.2 rounded bg-[#FACA14]/20 text-[#AA8820] font-mono border border-[#FACA14]/40 font-bold flex items-center gap-1">
+                <span className="font-brand font-bold text-[10px] lowercase text-[#111622]">conobras</span> ENGINE
               </span>
             </div>
             <div className="text-[10px] text-[#586274] font-mono">

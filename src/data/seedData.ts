@@ -1,14 +1,15 @@
 import { Insumo, ConfiguracionEmpresa, Cotizacion } from '../types';
 
 export const DEFAULT_CONFIG: ConfiguracionEmpresa = {
-  nombreEmpresa: 'Conobras',
+  nombreEmpresa: 'conobras',
   eslogan: 'Construcción + Arquitectura',
-  arquitecto: 'Arq. Thomas Castro',
+  arquitecto: 'Arquitecto - Constructor John Fabio Giraldo',
+  especialidad: 'Especialista en Gerencia de la Construcción',
   cedulaProfesional: 'CED-ARQ-893421',
-  telefono: '+52 55 4123 9876',
-  email: 'contacto@conobras.com',
-  direccion: 'Av. Arquitectura 1050, Suite 4B',
-  sitioWeb: 'www.conobras.com',
+  telefono: '3128710555',
+  email: 'gerencia@conobrasfg.com',
+  direccion: '@conobras',
+  sitioWeb: 'instagram.com/conobras',
   monedaSimbolo: '$',
   porcentajeImprevistosDefault: 5,
   porcentajeGastosGeneralesDefault: 8,
@@ -222,7 +223,7 @@ export const SAMPLE_COTIZACION: Cotizacion = {
   porcentajeHonorarios: 15,
   aplicaIva: false,
   porcentajeIva: 16,
-  notas: '1. Los precios se mantendrán fijos durante el periodo de vigencia indicado.\n2. Incluye mano de obra calificada, equipo de protección, limpieza diaria y retiro de escombros.\n3. Esquema de pago: 40% Anticipo a la firma de contrato, 50% en 4 estimaciones quincenales según avance físico, 10% Finiquito contra entrega de obra.',
+  notas: '1. Los precios se mantendrán fijos para la ejecución del proyecto acordado.\n2. Incluye mano de obra calificada, equipo de protección, limpieza diaria y retiro de escombros.\n3. Esquema de pago: 40% Anticipo a la firma de contrato, 50% en 4 estimaciones quincenales según avance físico, 10% Finiquito contra entrega de obra.',
   estado: 'PRESENTADA',
   creadoEn: '2026-09-25T10:00:00.000Z',
   actualizadoEn: '2026-09-25T14:30:00.000Z',
@@ -235,7 +236,7 @@ export const SAMPLE_COTIZACION: Cotizacion = {
           id: 'item-1',
           insumoId: 'mo-001',
           descripcion: 'Trazo, nivelación topográfica y protección perimetral con plástico negro y triplay',
-          categoria: 'MANO_DE_OBRA',
+          categoria: 'TODO_COSTO',
           unidad: 'm2',
           cantidad: 85,
           precioUnitario: 65.00
@@ -244,7 +245,7 @@ export const SAMPLE_COTIZACION: Cotizacion = {
           id: 'item-2',
           insumoId: 'mo-005',
           descripcion: 'Demolición controlada de piso de concreto existente e=10cm a mano y marro',
-          categoria: 'MANO_DE_OBRA',
+          categoria: 'TODO_COSTO',
           unidad: 'm2',
           cantidad: 42,
           precioUnitario: 145.00
@@ -253,8 +254,8 @@ export const SAMPLE_COTIZACION: Cotizacion = {
           id: 'item-3',
           insumoId: 'eq-003',
           descripcion: 'Retiro y desalojo de escombro producto de demolición en camión volteo 7m3',
-          categoria: 'EQUIPO',
-          unidad: 'viaje',
+          categoria: 'TODO_COSTO',
+          unidad: 'vj',
           cantidad: 2,
           precioUnitario: 1450.00
         }
@@ -268,7 +269,7 @@ export const SAMPLE_COTIZACION: Cotizacion = {
           id: 'item-4',
           insumoId: 'mat-003',
           descripcion: 'Suministro y habilitado de perfil IPR 8"x4" para columnas y vigas de soporte',
-          categoria: 'MATERIAL',
+          categoria: 'TODO_COSTO',
           unidad: 'kg',
           cantidad: 950,
           precioUnitario: 48.00
@@ -277,7 +278,7 @@ export const SAMPLE_COTIZACION: Cotizacion = {
           id: 'item-5',
           insumoId: 'mat-006',
           descripcion: 'Firme de concreto premezclado f\'c=250 kg/cm2 bombeado con losacero cal. 22',
-          categoria: 'MATERIAL',
+          categoria: 'TODO_COSTO',
           unidad: 'm2',
           cantidad: 45,
           precioUnitario: 1120.00
@@ -292,7 +293,7 @@ export const SAMPLE_COTIZACION: Cotizacion = {
           id: 'item-6',
           insumoId: 'mat-008',
           descripcion: 'Suministro e instalación de porcelanato rectificado 60x120cm Calacatta Gold sobre adhesivo PSP',
-          categoria: 'MATERIAL',
+          categoria: 'TODO_COSTO',
           unidad: 'm2',
           cantidad: 45,
           precioUnitario: 1250.00
@@ -301,7 +302,7 @@ export const SAMPLE_COTIZACION: Cotizacion = {
           id: 'item-7',
           insumoId: 'sub-001',
           descripcion: 'Cancelería perimetral de cristal templado 10mm con herrajes de acero inoxidable satinado',
-          categoria: 'SUBCONTRATO',
+          categoria: 'TODO_COSTO',
           unidad: 'ml',
           cantidad: 14.5,
           precioUnitario: 3800.00

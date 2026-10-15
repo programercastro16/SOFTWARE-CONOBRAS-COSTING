@@ -35,7 +35,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ config, onRefresh })
             </h2>
           </div>
           <p className="text-xs text-[#586274] mt-0.5">
-            Personaliza los datos institucionales de Conobras, perfil del arquitecto y porcentajes base
+            Personaliza los datos institucionales de <span className="font-brand font-bold lowercase text-sm">conobras</span>, perfil del arquitecto y porcentajes base
           </p>
         </div>
 
@@ -59,7 +59,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ config, onRefresh })
           <div className="p-6 rounded-2xl bg-white border border-[#C5CAD2] space-y-4 hover:border-[#D4AF37]/50 transition-colors shadow-sm">
             <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#9E7A18] border-b border-[#C5CAD2] pb-3">
               <Building2 size={16} />
-              <span>Datos Institucionales (Conobras)</span>
+              <span>Datos Institucionales (<span className="font-brand font-bold lowercase text-sm text-[#111622]">conobras</span>)</span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -119,6 +119,16 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ config, onRefresh })
                   type="text"
                   value={formData.arquitecto}
                   onChange={(e) => setFormData({ ...formData, arquitecto: e.target.value })}
+                  className="w-full bg-[#F8F9FA] border border-[#C8CDD5] rounded-lg px-3 py-2 text-xs text-[#111622] focus:outline-none focus:border-[#D4AF37]"
+                />
+              </div>
+              <div>
+                <label className="text-[11px] text-[#586274] block mb-1">Especialidad / Postgrado</label>
+                <input
+                  type="text"
+                  value={formData.especialidad || ''}
+                  placeholder="Especialista en Gerencia de la Construcción"
+                  onChange={(e) => setFormData({ ...formData, especialidad: e.target.value })}
                   className="w-full bg-[#F8F9FA] border border-[#C8CDD5] rounded-lg px-3 py-2 text-xs text-[#111622] focus:outline-none focus:border-[#D4AF37]"
                 />
               </div>

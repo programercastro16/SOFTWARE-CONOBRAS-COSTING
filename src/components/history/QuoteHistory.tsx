@@ -129,7 +129,7 @@ export const QuoteHistory: React.FC<QuoteHistoryProps> = ({
             </h2>
           </div>
           <p className="text-xs text-[#586274] mt-0.5">
-            Registro local de propuestas económicas, presupuestos emitidos y análisis de costos Conobras
+            Registro local de propuestas económicas, presupuestos emitidos y análisis de costos <span className="font-brand font-bold lowercase text-xs">conobras</span>
           </p>
         </div>
 

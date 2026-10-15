@@ -1,7 +1,7 @@
 {
   "name": "conobras-quote",
   "version": "1.0.0",
-  "description": "Software de Cotizaciones y Costos de Obra para Arquitectura - Conobras",
+  "description": "Conobras Quote - Presupuestos y Costos Arquitectonicos",
   "main": "electron/main.cjs",
   "scripts": {
     "dev": "vite",
@@ -18,8 +18,48 @@
     "electron",
     "sqlite"
   ],
-  "author": "Conobras Construcción + Arquitectura",
+  "author": "Conobras Arquitectura",
   "license": "MIT",
+  "build": {
+    "appId": "com.conobras.quote",
+    "productName": "Conobras Quote",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "win": {
+      "icon": "assets/conobras-logo.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Conobras Quote",
+      "installerIcon": "assets/conobras-logo.ico",
+      "uninstallerIcon": "assets/conobras-logo.ico",
+      "installerHeaderIcon": "assets/conobras-logo.ico"
+    }
+  },
   "dependencies": {
     "clsx": "^2.1.1",
     "html2canvas": "^1.4.1",

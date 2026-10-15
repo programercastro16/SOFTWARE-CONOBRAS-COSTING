@@ -77,7 +77,7 @@ export const TypewriterHeadline: React.FC<TypewriterHeadlineProps> = ({
 
   return (
     <div className={`flex items-center gap-1.5 font-mono text-xs text-[#586274] ${className}`}>
-      {prefix && <span className="text-[#9E7A18] font-semibold">{prefix}</span>}
+      {prefix && <span className="font-brand font-bold text-xs lowercase text-[#9E7A18] tracking-normal">{prefix}</span>}
       <span className="text-[#111622] font-semibold">
         {currentText}
       </span>

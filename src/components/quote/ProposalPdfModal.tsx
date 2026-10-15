@@ -244,14 +244,14 @@ export const ProposalPdfModal: React.FC<ProposalPdfModalProps> = ({
   const handleShareWhatsApp = () => {
     const cleanPhone = (safeQuote.telefono || '').replace(/\D/g, '');
     const message =
-      `*PROPUESTA ECONÓMICA DE OBRA - CONOBRAS*\n` +
+      `*PROPUESTA ECONÓMICA DE OBRA (A TODO COSTO) - conobras*\n` +
       `*Folio:* ${safeQuote.codigo}\n` +
       `*Proyecto:* ${safeQuote.proyecto}\n` +
       `*Cliente:* ${safeQuote.cliente}\n` +
       `*Ubicación:* ${safeQuote.ubicacion}\n\n` +
       `*Inversión Total Estimada:* ${formatMoneda(totalFinal)}\n` +
-      `*Vigencia:* ${safeQuote.validezDias} días a partir del ${safeQuote.fecha}.\n\n` +
-      `_Emitido por: ${safeConfig.arquitecto} | Conobras Construcción + Arquitectura_\n` +
+      `*Fecha de Emisión:* ${safeQuote.fecha}\n\n` +
+      `_Emitido por: ${safeConfig.arquitecto} (${safeConfig.especialidad || 'Especialista en gerencia de la construcción'}) | conobras Construcción + Arquitectura_\n` +
       `Quedamos a su disposición para coordinar la revisión del proyecto.`;
 
     const encoded = encodeURIComponent(message);
@@ -369,54 +369,61 @@ export const ProposalPdfModal: React.FC<ProposalPdfModalProps> = ({
                     {/* ENCABEZADO: COMPLETO EN HOJA 1, COMPACTO EN HOJA 2+ */}
                     {page.showFullHeader ? (
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '2px solid #1A202C', paddingBottom: '20px', marginBottom: '20px', backgroundColor: '#FFFFFF' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                          <div style={{ height: '60px', width: '84px', padding: '2px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
+                          <div style={{ height: '68px', width: '122px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                             <img
-                              src="./assets/conobras-logo.png"
-                              alt="Conobras"
-                              style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain' }}
+                              src="./assets/conobras-icon.png"
+                              alt="conobras"
+                              style={{ height: '100%', width: 'auto', maxWidth: '100%', objectFit: 'contain' }}
                               onError={(e) => {
                                 (e.target as HTMLElement).style.display = 'none';
                               }}
                             />
                           </div>
                           <div>
-                            <h1 style={{ fontSize: '22px', fontWeight: 800, letterSpacing: '-0.02em', color: '#1A202C', textTransform: 'uppercase', margin: 0 }}>
-                              CONOBRAS
+                            <h1 style={{ fontFamily: "'Outfit', sans-serif", fontSize: '28px', fontWeight: 700, letterSpacing: '-0.02em', color: '#444848', textTransform: 'lowercase', margin: 0, lineHeight: 1 }}>
+                              conobras
                             </h1>
-                            <p style={{ fontSize: '10px', letterSpacing: '0.15em', color: '#718096', textTransform: 'uppercase', fontWeight: 600, margin: '2px 0 0 0' }}>
+                            <p style={{ fontSize: '10px', letterSpacing: '0.15em', color: '#718096', textTransform: 'uppercase', fontWeight: 600, margin: '4px 0 0 0' }}>
                               CONSTRUCCIÓN + ARQUITECTURA <span style={{ color: '#48BB78' }}>●</span>
                             </p>
-                            <p style={{ fontSize: '11px', color: '#4A5568', margin: '3px 0 0 0' }}>
-                              {safeConfig.direccion} • {safeConfig.telefono}
+                            <p style={{ fontSize: '10.5px', color: '#4A5568', margin: '3px 0 0 0', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                              <span>3128710555</span>
+                              <span style={{ color: '#CBD5E1' }}>•</span>
+                              <span>gerencia@conobrasfg.com</span>
+                              <span style={{ color: '#CBD5E1' }}>•</span>
+                              <span>@conobras</span>
                             </p>
                           </div>
                         </div>
 
                         <div style={{ textAlign: 'right' }}>
                           <span style={{ fontSize: '11px', textTransform: 'uppercase', fontWeight: 700, letterSpacing: '0.12em', color: '#AA8820', display: 'block' }}>
-                            PROPUESTA TÉCNICA Y ECONÓMICA
+                            PROPUESTA TÉCNICA Y ECONÓMICA • A TODO COSTO
                           </span>
                           <span style={{ fontSize: '19px', fontFamily: 'monospace', fontWeight: 700, color: '#1A202C', display: 'block', marginTop: '2px' }}>
                             {safeQuote.codigo}
                           </span>
                           <div style={{ fontSize: '11px', color: '#718096', marginTop: '3px' }}>
                             <div>Fecha: <strong style={{ color: '#1A202C' }}>{safeQuote.fecha}</strong></div>
-                            <div>Vigencia: <strong style={{ color: '#1A202C' }}>{safeQuote.validezDias} días</strong></div>
                           </div>
                         </div>
                       </div>
                     ) : (
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '2px solid #D4AF37', paddingBottom: '10px', marginBottom: '18px', backgroundColor: '#FFFFFF' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '2px solid #FACA14', paddingBottom: '10px', marginBottom: '18px', backgroundColor: '#FFFFFF' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                          <div style={{ height: '32px', width: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#1A202C', borderRadius: '4px' }}>
-                            <Building2 size={18} color="#D4AF37" />
+                          <div style={{ height: '28px', width: '42px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <img
+                              src="./assets/conobras-icon.png"
+                              alt="conobras"
+                              style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain' }}
+                            />
                           </div>
                           <div>
-                            <span style={{ fontSize: '13px', fontWeight: 800, color: '#1A202C', letterSpacing: '-0.01em', textTransform: 'uppercase' }}>
-                              CONOBRAS
+                            <span style={{ fontFamily: "'Outfit', sans-serif", fontSize: '16px', fontWeight: 700, color: '#444848', textTransform: 'lowercase' }}>
+                              conobras
                             </span>
-                            <span style={{ fontSize: '9px', color: '#718096', marginLeft: '6px', fontWeight: 600 }}>
+                            <span style={{ fontSize: '9px', color: '#718096', marginLeft: '8px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                               CONSTRUCCIÓN + ARQUITECTURA
                             </span>
                             <div style={{ fontSize: '10px', color: '#4A5568', marginTop: '1px' }}>
@@ -469,10 +476,11 @@ export const ProposalPdfModal: React.FC<ProposalPdfModalProps> = ({
                           {/* Tabla con ancho fijo estricto para que todas las columnas coincidan 100% */}
                           <table style={{ width: '100%', tableLayout: 'fixed', borderCollapse: 'collapse', backgroundColor: '#FFFFFF' }}>
                             <colgroup>
-                              <col style={{ width: '36px' }} />
-                              <col style={{ width: '330px' }} />
-                              <col style={{ width: '60px' }} />
-                              <col style={{ width: '54px' }} />
+                              <col style={{ width: '32px' }} />
+                              <col style={{ width: '268px' }} />
+                              <col style={{ width: '80px' }} />
+                              <col style={{ width: '48px' }} />
+                              <col style={{ width: '52px' }} />
                               <col style={{ width: '105px' }} />
                               <col style={{ width: '115px' }} />
                             </colgroup>
@@ -480,6 +488,7 @@ export const ProposalPdfModal: React.FC<ProposalPdfModalProps> = ({
                               <tr style={{ color: '#718096', textTransform: 'uppercase', backgroundColor: '#FFFFFF', borderBottom: '1px solid #E2E8F0', fontSize: '8.5px', letterSpacing: '0.08em' }}>
                                 <th style={{ padding: '5px 4px', textAlign: 'center', fontWeight: 600 }}>#</th>
                                 <th style={{ padding: '5px 8px', textAlign: 'left', fontWeight: 600 }}>Concepto de Obra</th>
+                                <th style={{ padding: '5px 4px', textAlign: 'center', fontWeight: 600 }}>Tipo</th>
                                 <th style={{ padding: '5px 4px', textAlign: 'center', fontWeight: 600 }}>Unidad</th>
                                 <th style={{ padding: '5px 6px', textAlign: 'right', fontWeight: 600 }}>Cant.</th>
                                 <th style={{ padding: '5px 8px', textAlign: 'right', fontWeight: 600 }}>P. Unitario</th>
@@ -494,6 +503,9 @@ export const ProposalPdfModal: React.FC<ProposalPdfModalProps> = ({
                                   </td>
                                   <td style={{ padding: '5px 8px', textAlign: 'left', fontWeight: 500, color: '#2D3748', fontSize: '10.5px', wordBreak: 'break-word', lineHeight: '1.3' }}>
                                     {item.descripcion}
+                                  </td>
+                                  <td style={{ padding: '5px 4px', textAlign: 'center', fontSize: '10px', color: '#4A5568', fontWeight: 500 }}>
+                                    Todo costo
                                   </td>
                                   <td style={{ padding: '5px 4px', textAlign: 'center', color: '#718096', fontFamily: 'monospace', fontSize: '10.5px' }}>
                                     {item.unidad}
@@ -575,10 +587,15 @@ export const ProposalPdfModal: React.FC<ProposalPdfModalProps> = ({
                             <span style={{ fontSize: '9.5px', color: '#A0AEC0', fontStyle: 'italic' }}>Firma autorizada</span>
                           </div>
                           <div style={{ fontWeight: 700, color: '#1A202C' }}>{safeConfig.arquitecto}</div>
-                          <div style={{ fontSize: '9.5px', color: '#718096' }}>
+                          <div style={{ fontSize: '9.5px', color: '#4A5568', fontWeight: 600, marginTop: '1px' }}>
+                            {safeConfig.especialidad || 'Especialista en gerencia de la construcción'}
+                          </div>
+                          <div style={{ fontSize: '9.5px', color: '#718096', marginTop: '1px' }}>
                             {safeConfig.cedulaProfesional ? `Cédula: ${safeConfig.cedulaProfesional}` : 'Arquitecto Titular'}
                           </div>
-                          <div style={{ fontSize: '9.5px', color: '#AA8820', fontWeight: 600 }}>Conobras Construcción + Arquitectura</div>
+                          <div style={{ fontSize: '9.5px', color: '#AA8820', fontWeight: 600, marginTop: '2px' }}>
+                            <span style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 700, fontSize: '11px' }}>conobras</span> Construcción + Arquitectura
+                          </div>
                         </div>
 
                         <div>
@@ -596,10 +613,15 @@ export const ProposalPdfModal: React.FC<ProposalPdfModalProps> = ({
 
                   {/* PIE DE PÁGINA INSTITUCIONAL DE CADA HOJA */}
                   <div style={{ borderTop: '1px solid #E2E8F0', paddingTop: '8px', marginTop: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '9px', color: '#718096' }}>
-                    <div>
-                      <span style={{ fontWeight: 700, color: '#1A202C' }}>CONOBRAS CONSTRUCCIÓN + ARQUITECTURA</span>
-                      {safeConfig.direccion && <span> • {safeConfig.direccion}</span>}
-                      {safeConfig.telefono && <span> • Tel: {safeConfig.telefono}</span>}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <span style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 700, fontSize: '12px', color: '#444848' }}>conobras</span>
+                      <span style={{ fontWeight: 600, color: '#718096', fontSize: '8.5px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>CONSTRUCCIÓN + ARQUITECTURA</span>
+                      <span style={{ color: '#CBD5E1' }}>•</span>
+                      <span>3128710555</span>
+                      <span style={{ color: '#CBD5E1' }}>•</span>
+                      <span>gerencia@conobrasfg.com</span>
+                      <span style={{ color: '#CBD5E1' }}>•</span>
+                      <span>@conobras</span>
                     </div>
                     <div style={{ fontWeight: 600, color: '#AA8820' }}>
                       Página {page.pageNumber} de {pages.length}
